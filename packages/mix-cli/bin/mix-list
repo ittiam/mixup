@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+'use strict';
+
+const logger = require('../util/logger');
+const PLUGIN_PATH = require('../util/path').PLUGIN_PATH;
+const path = require('path');
+const json = require('format-json');
+
+const info = require(path.join(PLUGIN_PATH, 'package.json'));
+const dependencies = info.dependencies;
+const generatorPkg = {};
+const pluginPkg = {};
+const commandPkg = {};
+
+for (const name in dependencies) {
+  if (/^slush-mix-/.test(name)) {
+    generatorPkg[name.replace(/^slush-mix-/, '')] = dependencies[name];
+  } else if (/^mix-(\S+)-command$/.test(name)) {
+    commandPkg[name.replace(/^mix-(\S+)-command$/, '$1')] = dependencies[name];
+  } else if (/^mix-/.test(name)) {
+    pluginPkg[name.replace(/^mix-/, '')] = dependencies[name];
+  }
+}
+
+logger.log('--------------');
+logger.log('已安装脚手架');
+logger.log('--------------');
+console.log(json.plain(generatorPkg));
+console.log();
+logger.log('--------------');
+logger.log('已安装插件');
+logger.log('--------------');
+console.log(json.plain(pluginPkg));
+console.log();
+logger.log('--------------');
+logger.log('已安装指令');
+logger.log('--------------');
+console.log(json.plain(commandPkg));

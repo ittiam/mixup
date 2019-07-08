@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+'use strict';
+
+const path = require('path');
+const chalk = require('chalk');
+const program = require('commander');
+const PATH = require('../util/path');
+const check = require('../util/check');
+const config = require('../util/config');
+const logger = require('../util/logger');
+
+console.log();
+process.on('exit', () => console.log());
+
+check.initPluginPackage();
+config.init();
+
+try {
+  check.checkPermission();
+} catch (_) {
+  logger.fatal(`chalk.yellow('permission denied')
+    Try running with ${chalk.cyan('sudo')}  or get access
+
+    ${chalk.cyan('sudo chown -R $USER:$(id -gn $USER) ' + PATH.PLUGIN_PATH)}
+  `);
+}
+
+if (config.get('updateCheck')) {
+  check.checkVersion();
+}
+
+// hack
+// https://gist.github.com/branneman/8048520#6-the-hack
+process.env['NODE_PATH'] = [
+  path.join(PATH.CWD_PATH, 'node_modules'),
+  PATH.LIB_PATH,
+  path.join(PATH.ROOT_PATH, check.isYarn() ? '..' : 'node_modules'),
+  path.join(PATH.PLUGIN_PATH, 'node_modules'),
+  process.env['NODE_PATH'] || ''
+].join(path.delimiter);
+
+require('module').Module._initPaths();
+
+// initPath
+process.env.MIXUP_PATH = [
+  'node_modules',
+  path.join(PATH.CWD_PATH, 'node_modules'),
+  path.join(PATH.PLUGIN_PATH, 'node_modules'),
+  path.join(PATH.ROOT_PATH, check.isYarn() ? '..' : 'node_modules')
+].join(',');
+
+program
+  .usage('<command> [options]')
+  .version(require('../package.json').version)
+  .command('config <option>', 'List configuration info')
+  .command('init <template>', 'Create a project through template')
+  .command('create <project-name> <template>', 'Create new directory and run init command')
+  .command('import <plugin>', 'Install plugin')
+  .command('update <plugin>', 'Update plugin')
+  .command('remove <plugin>', 'Remove plugin')
+  .command('list', 'List of installed plugins')
+  .command('watch', 'Development mode')
+  .command('build', 'Production mode');
+
+// 加载动态指令
+require('../util/load-command')(program);
+program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}

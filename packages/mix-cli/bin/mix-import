@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+'use strict';
+
+const program = require('commander');
+const logger = require('../util/logger');
+const npm = require('../util/npm');
+
+program
+  .option('-r --registry [registry-url]', '指定镜像, 默认选用 taobao 镜像')
+  .option('-t --template', '安装脚手架')
+  .option('-c --cmd', '安装指令')
+  .parse(process.argv);
+
+let name = program.args;
+
+if (!name) {
+  logger.fatal('请指定插件名称');
+}
+
+if (program.template) {
+  logger.log(`安装脚手架: ${name}`);
+  name = name.map(item => `slush-mix-${item}`);
+} else if (program.cmd) {
+  logger.log(`安装指令: ${name}`);
+  name = name.map(item => `mix-${item}-command`);
+} else {
+  logger.log(`安装插件: ${name}`);
+  name = name.map(item => `mix-${item}`);
+}
+
+npm.install(name, program.registry);
+logger.success('安装成功');

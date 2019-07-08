@@ -1,0 +1,70 @@
+{
+  "name": "@mixup/cli",
+  "version": "1.5.5",
+  "description": "mix cli.",
+  "preferGlobal": true,
+  "bin": {
+    "mix": "bin/mix",
+    "mix-build": "bin/mix-build",
+    "mix-config": "bin/mix-config",
+    "mix-create": "bin/mix-create",
+    "mix-import": "bin/mix-import",
+    "mix-init": "bin/mix-init",
+    "mix-list": "bin/mix-list",
+    "mix-remove": "bin/mix-remove",
+    "mix-update": "bin/mix-update",
+    "mix-watch": "bin/mix-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ittiam/mix.git"
+  },
+  "keywords": [
+    "vue",
+    "webpack",
+    "build",
+    "tool",
+    "react"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ittiam/mix/issues"
+  },
+  "engines": {
+    "node": ">=8.10.0",
+    "npm": ">=5.0.0"
+  },
+  "homepage": "https://github.com/ittiam/mix#readme",
+  "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-transform-typescript": "^7.4.4",
+    "@babel/types": "^7.4.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-inline-json": "^1.2.2",
+    "browserslist": "^4.5.6",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "cross-spawn": "^6.0.5",
+    "format-json": "^1.0.3",
+    "pnp-webpack-plugin": "^1.4.3",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.6.0",
+    "postcss-safe-parser": "^4.0.1",
+    "postcss-url": "^8.0.0",
+    "shelljs": "^0.8.3",
+    "slush": "^1.1.1",
+    "update-notifier": "^3.0.1",
+    "webpack": "^4.31.0",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.2.1",
+    "zip-webpack-plugin": "^3.0.0"
+  }
+}

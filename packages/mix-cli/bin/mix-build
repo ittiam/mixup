@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+'use strict';
+
+const check = require('../util/check');
+const localMixup = check.localExists('@mixup/mix');
+const exec = require('../util/exec');
+
+if (localMixup) {
+  exec(
+    require('path').resolve(process.cwd(), 'node_modules/@mixup/mix/bin/mixup-build'),
+    process.argv.slice(2),
+    { stdio: 'inherit' }
+  );
+} else {
+  exec(
+    require('path').resolve(
+      __dirname,
+      check.isYarn() ? '../../' : '../node_modules',
+      './@mixup/mix/bin/mixup-build'
+    ),
+    process.argv.slice(2),
+    { stdio: 'inherit' }
+  );
+}

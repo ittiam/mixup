@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+'use strict';
+
+// set env
+process.env.NODE_ENV = 'development';
+
+const path = require('path');
+const program = require('commander');
+const logger = require('../util/logger');
+const loadConfig = require('../util/load-config');
+const isBoolean = require('../util/is').Boolean;
+const webpack = require('webpack');
+const DevServer = require('webpack-dev-server');
+let configs = [];
+
+program
+  .option('-c --config [configfile]', 'config file', val => val.split(','))
+  .option('-p --progress', 'Display progress')
+  .parse(process.argv);
+
+program.config = program.config || ['mix.conf.js'];
+
+// 加载配置
+program.config.forEach(config => {
+  config = loadConfig(config, program);
+  configs = configs.concat(config);
+  [].concat(config).forEach(function(c) {
+    // 尽可能获取 devServer 的配置
+    configs.devServer = c.devServer.enable ? c.devServer : configs.devServer || c.devServer;
+  });
+});
+
+configs = configs.length === 1 ? configs[0] : configs;
+
+// run watch
+if (!configs.devServer.enable) {
+  const compiler = webpack(configs);
+
+  logger.log('Loading...');
+  compiler.watch({}, (err, stats) => {
+    if (err) {
+      return logger.error(err);
+    }
+
+    logger.log('webpack info \n' + stats.toString(configs.devServer.stats));
+  });
+} else {
+  // webpack dev server
+  logger.log('Loading server...');
+  var hostPlugin = webpack.HotModuleReplacementPlugin || function() {};
+  var namedModules = webpack.NamedModulesPlugin || function() {};
+
+  if (Array.isArray(configs)) {
+    configs.map(config => config.plugins.push(new hostPlugin(), new namedModules()));
+  } else {
+    configs.plugins.push(new hostPlugin(), new namedModules());
+  }
+
+  let devServer = configs.devServer;
+  const host = devServer.__host__;
+
+  if (isBoolean(configs.devServer.log)) delete configs.devServer.log;
+
+  logger.success(`Listening at ${host}`);
+  new DevServer(webpack(configs), devServer).listen(devServer.port, devServer.host);
+}

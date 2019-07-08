@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+'use strict';
+
+const program = require('commander');
+const logger = require('../util/logger');
+const npm = require('../util/npm');
+
+program
+  .option('-t --template', '卸载脚手架')
+  .option('-c --cmd', '卸载指令')
+  .parse(process.argv);
+
+let name = program.args;
+
+if (!name) {
+  logger.fatal('请指定插件/脚手架名称');
+}
+
+if (program.template) {
+  logger.log(`卸载脚手架: ${name}`);
+  name = name.map(item => `slush-mix-${item}`);
+} else if (program.cmd) {
+  logger.log(`卸载指令: ${name}`);
+  name = name.map(item => `mix-${item}-command`);
+} else {
+  logger.log(`卸载插件: ${name}`);
+  name = name.map(item => `mix-${item}`);
+}
+
+npm.uninstall(name, program.registry);
+logger.success('卸载完成');

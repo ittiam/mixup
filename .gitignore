@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+dist
+.DS_Store
+etc
+.idea
+.mix
+coverage
+.nyc_output
+.coveralls.yml
+lerna-debug.log
