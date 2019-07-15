@@ -1,35 +1,25 @@
-# cooking
-[![npm](https://img.shields.io/npm/dm/cooking-cli.svg?maxAge=2592000)]()
-[![npm](https://img.shields.io/npm/v/cooking-cli.svg?maxAge=6000)](https://www.npmjs.com/package/cooking-cli)
-[![gitter](https://img.shields.io/gitter/room/QingWei-Li/cooking.svg?maxAge=2592000)](https://gitter.im/QingWei-Li/cooking?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+# mix
 
-> [cooking](https://github.com/ElemeFE/cooking) 命令行工具
+> [mix](https://github.com/ittiam/mix) 命令行工具
 
-
-## Links
-- [Docs](http://cookingjs.github.io)
-- [Examples](https://github.com/cooking-demo)
-- [Plugins](https://github.com/cookingjs)
 
 ## Installation
 ```shell
-npm i cooking-cli -g
+npm i @mixup/cli -g
 ```
 
 ## Usages
 ```shell
 # create vue project
-cooking create vue-project vue
+mix create vue-project vue
 
 # development mode
-cooking watch
+mix watch
 
 # production mode
-cooking build
+mix build
 
 # import plugin
-cooking import vue,lint
+mix import vue,lint
 ```
 
-# License
-[MIT](https://github.com/ElemeFE/cooking/LICENSE)
