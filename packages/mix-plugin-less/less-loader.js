@@ -1,38 +1,32 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = function(options) {
   options = options || {};
-  // generate loader string to be used with extract text plugin
-  function generateLoaders(loaders) {
-    if (options.postcss) {
-      loaders.splice(loaders.length - 1, 0, 'postcss');
+
+  const sourceMap = options.sourceMap || false;
+  const extractCSS = options.extractCSS || false;
+
+  const loaders = [
+    extractCSS ? MiniCssExtractPlugin.loader : 'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        sourceMap: !!sourceMap
+      }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: !!sourceMap
+      }
+    },
+    {
+      loader: 'less-loader',
+      options: {
+        sourceMap: !!sourceMap
+      }
     }
+  ];
 
-    var sourceLoader = loaders
-      .map(function(loader) {
-        var extraParamChar;
-        if (/\?/.test(loader)) {
-          loader = loader.replace(/\?/, '-loader?');
-          extraParamChar = '&';
-        } else {
-          loader = loader + '-loader';
-          extraParamChar = '?';
-        }
-        return loader + (options.sourceMap ? extraParamChar + 'sourceMap' : '');
-      })
-      .join('!');
-
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        fallbackLoader: 'style-loader',
-        loader: sourceLoader
-      });
-    } else {
-      return ['style-loader', sourceLoader].join('!');
-    }
-  }
-
-  return {
-    less: generateLoaders(['css', 'less'])
-  };
+  return loaders;
 };

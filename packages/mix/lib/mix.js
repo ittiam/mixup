@@ -16,7 +16,7 @@ exports.webpackVersion = require('webpack/package.json').version;
  */
 const replacePath = function(_path) {
   if (/^((pre|post)?loader)s?/gi.test(_path)) {
-    return _path.replace(/^((pre|post)?loader)s?/gi, 'module.$1s');
+    return _path.replace(/^((pre|post)?loader)s?/gi, 'module.rules');
   }
 
   if (/^(plugin)s?/g.test(_path)) {

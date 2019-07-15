@@ -40,7 +40,7 @@ module.exports = (_extends, mix) => {
         extend = extend[0];
       }
 
-      const extendName = extend.split('@')[0];
+      const extendName = extend;
 
       if (!pluginExists(extendName)) {
         installExtend(extend);
@@ -48,5 +48,6 @@ module.exports = (_extends, mix) => {
 
       importExtend(extendName, mix, options);
     });
+
   console.log();
 };

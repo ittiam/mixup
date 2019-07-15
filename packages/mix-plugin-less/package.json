@@ -1,0 +1,15 @@
+{
+  "name": "@mixup/mix-plugin-less",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0"
+  }
+}
