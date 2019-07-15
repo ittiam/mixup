@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 'use strict';
-
 // set env
 process.env.NODE_ENV = 'production';
 
@@ -32,6 +31,9 @@ program.config.forEach(config => {
 });
 
 configs = configs.length === 1 ? configs[0] : configs;
+
+if (configs.extractCSS) delete configs.extractCSS;
+if (configs.minimize) delete configs.minimize;
 
 // production
 compiler = webpack(configs);

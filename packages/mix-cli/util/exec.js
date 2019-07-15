@@ -10,7 +10,7 @@ module.exports = (cmd, args, opts) => {
   const errMessage = opts.errorMessage;
   const command = spawnSync(cmd, args || [], opts);
 
-  if (command.status === 1) {
+  if (command.error) {
     if (command.stderr) {
       logger.fatal(errMessage || command.stderr.toString());
     }

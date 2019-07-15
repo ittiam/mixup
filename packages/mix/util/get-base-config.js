@@ -15,8 +15,8 @@ module.exports = function(userConfig) {
     output: {
       path: path.resolve(process.cwd(), 'dist'),
       publicPath: '/dist/',
-      filename: '[name].js',
-      chunkFilename: '[name].chunk.js'
+      filename: 'js/[name].js',
+      chunkFilename: 'js/[name].chunk.js'
     },
 
     resolve: {

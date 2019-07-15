@@ -16,7 +16,7 @@ if (localMixup) {
     require('path').resolve(
       __dirname,
       check.isYarn() ? '../../' : '../node_modules',
-      './@mixup/mix/bin/mixup-build'
+      './@mixup/mix/bin/mix-build'
     ),
     process.argv.slice(2),
     { stdio: 'inherit' }

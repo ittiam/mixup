@@ -1,6 +1,7 @@
 const extractCSS = require('./extract-css');
 const is = require('./is');
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const calcSourceMap = function(sourceMap) {
   if (sourceMap === true) {
@@ -23,6 +24,7 @@ module.exports = function(config, userConfig) {
   }
 
   const minimize = userConfig.minimize;
+
   const UglifyJs = new TerserPlugin({
     terserOptions: {
       parse: {

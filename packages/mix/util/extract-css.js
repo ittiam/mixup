@@ -28,13 +28,13 @@ module.exports = function(extractcss, config, hash) {
       {
         loader: 'css-loader',
         options: {
-          sourceMap: sourceMap
+          sourceMap: !!sourceMap
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: sourceMap
+          sourceMap: !!sourceMap
         }
       }
     ]
