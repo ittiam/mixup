@@ -1,6 +1,6 @@
 {
   "name": "@mixup/cli",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "mix cli.",
   "preferGlobal": true,
   "bin": {
