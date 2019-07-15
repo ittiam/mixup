@@ -24,6 +24,7 @@ program.config = program.config || ['mix.conf.js'];
 program.config.forEach(config => {
   config = loadConfig(config, program);
   configs = configs.concat(config);
+
   [].concat(config).forEach(function(c) {
     // 尽可能获取 devServer 的配置
     configs.devServer = c.devServer.enable ? c.devServer : configs.devServer || c.devServer;

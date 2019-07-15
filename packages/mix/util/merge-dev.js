@@ -1,4 +1,5 @@
 const extractCSS = require('./extract-css');
+const is = require('./is');
 
 const calcSourceMap = function(sourceMap) {
   if (sourceMap === true) {

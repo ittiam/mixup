@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-modele.exports = function(extractcss, config, hash) {
+module.exports = function(extractcss, config, hash) {
   if (!extractcss) {
     return;
   }

@@ -1,4 +1,5 @@
 const extractCSS = require('./extract-css');
+const is = require('./is');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const calcSourceMap = function(sourceMap) {

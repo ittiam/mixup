@@ -80,7 +80,7 @@ module.exports = function(userConfig) {
           loader: 'url-loader',
           options: {
             limit: limit,
-            name: path.posix.join(assetsPath, 'image', '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, 'images', '[name].[hash:7].[ext]')
           }
         },
         image: {
@@ -88,7 +88,7 @@ module.exports = function(userConfig) {
           loader: 'url-loader',
           options: {
             limit: limit,
-            name: path.posix.join(assetsPath, 'image', '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, 'images', '[name].[hash:7].[ext]')
           }
         },
         media: {
@@ -96,7 +96,7 @@ module.exports = function(userConfig) {
           loader: 'url-loader',
           options: {
             limit: limit,
-            name: path.posix.join(assetsPath, 'meida', '[name].[hash:7].[ext]')
+            name: path.posix.join(assetsPath, 'media', '[name].[hash:7].[ext]')
           }
         }
       }
