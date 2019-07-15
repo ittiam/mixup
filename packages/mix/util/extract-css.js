@@ -16,7 +16,7 @@ modele.exports = function(extractcss, config, hash) {
   // import plugin
   config.plugins.ExtractText = new MiniCssExtractPlugin({
     filename: filename,
-    chunkFilename: 'css/[id].css'
+    chunkFilename: hash ? 'css/[name].[contenthash:7].chunk.css' : 'css/[name].chunk.css'
   });
 
   // update css loader

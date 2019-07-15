@@ -18,8 +18,8 @@ if (!option) {
   logger.fatal('请指定脚手架');
 }
 
-const name = 'mix-' + option;
-const template = 'slush-' + name;
+const name = option;
+const template = 'mix-template-' + name;
 
 /**
  * download template
@@ -27,7 +27,7 @@ const template = 'slush-' + name;
  */
 const installTemplate = template => {
   logger.log(`downloading '${template}'`);
-  npm.install(template, program.registry);
+  npm.install(`@mixup/${template}`, program.registry);
   logger.success('脚手架安装成功\n');
 };
 
@@ -47,6 +47,7 @@ if (!isInstalled('generator-package-mix')) {
   logger.log('下载脚手架相关依赖');
   npm.install('generator-package-mix', program.registry);
 }
+
 if (!isInstalled(path.join(template.split('@')[0], 'package.json'))) {
   installTemplate(template);
 }
