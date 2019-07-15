@@ -21,10 +21,11 @@ module.exports = function(userConfig) {
 
     resolve: {
       symlinks: false,
-
       extensions: ['.js', '.json'],
-
-      modules: ['node_modules']
+      modules: ['node_modules'],
+      alias: {
+        '@': path.resolve(process.cwd(), 'src')
+      }
     },
 
     resolveLoader: {},

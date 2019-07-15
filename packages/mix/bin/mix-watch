@@ -35,6 +35,8 @@ configs = configs.length === 1 ? configs[0] : configs;
 
 // run watch
 if (!configs.devServer.enable) {
+  delete configs.devServer.enable;
+
   const compiler = webpack(configs);
 
   logger.log('Loading...');
@@ -46,6 +48,7 @@ if (!configs.devServer.enable) {
     logger.log('webpack info \n' + stats.toString(configs.devServer.stats));
   });
 } else {
+  delete configs.devServer.enable;
   // webpack dev server
   logger.log('Loading server...');
   var hostPlugin = webpack.HotModuleReplacementPlugin || function() {};
@@ -59,7 +62,7 @@ if (!configs.devServer.enable) {
   let devServer = configs.devServer;
   const host = devServer.__host__;
 
-  if (isBoolean(configs.devServer.log)) delete configs.devServer.log;
+  delete devServer.__host__;
 
   logger.success(`Listening at ${host}`);
   new DevServer(webpack(configs), devServer).listen(devServer.port, devServer.host);

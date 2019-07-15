@@ -76,7 +76,7 @@ module.exports = function(userConfig, baseConfig) {
 
   // alias
   if (userConfig.alias) {
-    config.resolve.alias = userConfig.alias;
+    config.resolve.alias = Object.assign(config.resolve.alias, userConfig.alias);
   }
 
   // externals

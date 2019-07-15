@@ -4,15 +4,19 @@ const isObject = require('./is').Object;
 
 const defaultServer = {
   port: 8080,
+  enable: true,
+  disableHostCheck: true,
+  headers: { 'Access-Control-Allow-Origin': '*' },
   hot: true,
-  clientLogLevel: 'error',
-  color: true,
-  historyApiFallback: true,
+  clientLogLevel: 'none',
+  quiet: true,
+  historyApiFallback: {
+    disableDotRule: true
+  },
   lazy: false,
   stats: 'errors-only',
   host: '0.0.0.0',
-  disableHostCheck: true,
-  __host__: 'http://0.0.0.0:8080'
+  overlay: false
 };
 
 module.exports = server => {

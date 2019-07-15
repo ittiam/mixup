@@ -12,10 +12,10 @@ process.on('exit', function() {
   console.log();
 });
 
-// if (!isPathInside(__dirname, process.cwd())) {
-//   logger.fatal(`mix is local module. You should use ${chalk.cyan('@mixup/cli')}
-//     ${chalk.cyan('npm i @mixup/cli -g')}`);
-// }
+if (!isPathInside(__dirname, process.cwd())) {
+  logger.fatal(`mix is local module. You should use ${chalk.cyan('@mixup/cli')}
+    ${chalk.cyan('npm i @mixup/cli -g')}`);
+}
 
 program
   .usage('<command> [options]')
