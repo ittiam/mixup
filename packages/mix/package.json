@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mix",
-  "version": "1.5.10",
+  "version": "1.5.11",
   "preferGlobal": false,
   "description": "A modular build tool based on webpack.",
   "main": "lib/mix.js",
