@@ -1,12 +1,9 @@
 {
-  "name": "mix",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "test": "",
-    "build": "",
     "postinstall": "make bootstrap",
     "pub": "lerna publish --npm-client=npm"
   },
