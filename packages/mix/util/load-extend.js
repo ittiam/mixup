@@ -6,7 +6,7 @@ const pluginExists = require('./check').pluginExists;
 
 /* istanbul ignore next */
 const importExtend = function(extend, mix, options) {
-  require(`mix-${extend}`)(mix, options);
+  require(`@mixup/mix-plugin-${extend}`)(mix, options);
   logger.success(`Loaded success: ${extend}`);
 };
 
@@ -23,7 +23,7 @@ module.exports = function(_extends, mix) {
     const extend = isObj ? key : _extends[key];
     const options = isObj ? _extends[key] : {};
     const extendName = extend.split('@')[0];
-    const packageName = `mix-${extendName}`;
+    const packageName = `${extendName}`;
 
     if (!pluginExists(packageName)) {
       logger.fatal(`Please install ${packageName}, run 'npm i ${packageName} -D'`);

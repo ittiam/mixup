@@ -6,9 +6,7 @@ const CopyPlugin = require('./copy-plugin');
 
 module.exports = function(config) {
   // parse loader
-  ['loaders', 'preLoaders', 'postLoaders'].forEach(key => {
-    config.module[key] = _toArray(config.module[key]);
-  });
+  config.module.rules = _toArray(config.module.rules);
   // parse plugin
   config.plugins = _toArray(config.plugins);
 

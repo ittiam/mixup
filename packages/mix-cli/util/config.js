@@ -24,6 +24,7 @@ const formatBoolean = value => {
 
   return value;
 };
+
 const requireFile = () => {
   return require(filePath);
 };

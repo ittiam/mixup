@@ -2,49 +2,11 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const logger = require('./logger');
+
+const mergeDev = require('./merge-dev');
+const mergeProd = require('./merge-prod');
 const is = require('./is');
-const isNextWebpack = require('./check').isNextWebpack;
 const loadTemplate = require('./load-template');
-
-const extractCSS = function(extractcss, config, hash) {
-  if (!extractcss) {
-    return;
-  }
-  let filename = extractcss;
-
-  config.extractCSS = true;
-
-  if (extractcss === true) {
-    filename = hash ? '[name].[contenthash:7].css' : '[name].css';
-  }
-  // import plugin
-  config.plugins.ExtractText = new ExtractTextPlugin(filename);
-
-  // update css loader
-  const sourceMap = config.sourceMap ? '?sourceMap' : '';
-  const cssLoader = `css-loader${sourceMap}!postcss-loader${sourceMap}`;
-
-  config.module.loaders.css = {
-    test: /\.css$/,
-    loader: isNextWebpack
-      ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: cssLoader
-        })
-      : ExtractTextPlugin.extract('style-loader', cssLoader)
-  };
-};
-
-const calcSourceMap = function(sourceMap) {
-  if (sourceMap === true) {
-    return '#source-map';
-  } else if (sourceMap === false) {
-    return false;
-  }
-  return sourceMap;
-};
 
 /**
  * merge
@@ -82,6 +44,7 @@ module.exports = function(userConfig, baseConfig) {
   if (userConfig.moduleName) {
     config.output.library = userConfig.moduleName;
   }
+
   if (userConfig.format === 'umd' || userConfig.format === 'amd') {
     config.output.umdNamedDefine = true;
   }
@@ -106,87 +69,9 @@ module.exports = function(userConfig, baseConfig) {
 
   // development
   if (process.env.NODE_ENV === 'development') {
-    config.devtool = userConfig.sourceMap === true ? '#eval-source-map' : userConfig.sourceMap;
-    config.devServer = userConfig.devServer;
-
-    // plugin
-    config.plugins.NoErrors = webpack.NoEmitOnErrorsPlugin
-      ? new webpack.NoEmitOnErrorsPlugin()
-      : new webpack.NoErrorsPlugin();
-
-    // extractCSS
-    if (userConfig.devServer) {
-      extractCSS(userConfig.devServer.extractCSS, config, false);
-
-      // clean
-      if (is.Boolean(userConfig.devServer.clean)) {
-        config.__MIXUP_CLEAN__ = userConfig.devServer.clean;
-      } else {
-        config.__MIXUP_CLEAN__ = true;
-      }
-    }
-
-    // devtool
-    if (!config.devServer || (is.Object(config.devServer) && config.devServer.enable === false)) {
-      config.devtool = calcSourceMap(userConfig.sourceMap);
-    }
+    mergeDev(config, userConfig);
   } else {
-    config.devtool = calcSourceMap(userConfig.sourceMap);
-
-    // hash
-    userConfig.hash = Boolean(userConfig.hash);
-    if (userConfig.hash) {
-      config.output.filename = '[name].[chunkhash:7].js';
-      config.output.chunkFilename = '[id].[chunkhash:7].js';
-    }
-
-    const minimize = userConfig.minimize;
-    const UglifyJs = new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
-      output: { comments: false },
-      sourceMap: Boolean(userConfig.sourceMap)
-    });
-
-    const UglifyCSS = isNextWebpack
-      ? new webpack.LoaderOptionsPlugin({
-          minimize: true
-        })
-      : null;
-
-    if (is.Boolean(minimize)) {
-      if (minimize) {
-        config.plugins.UglifyJs = UglifyJs;
-        if (UglifyCSS) {
-          config.plugins.LoaderOptions = UglifyCSS;
-        }
-      }
-    } else if (is.Object(minimize)) {
-      if (minimize.js) {
-        config.plugins.UglifyJs = UglifyJs;
-      }
-
-      if (minimize.css) {
-        if (UglifyCSS) {
-          config.plugins.LoaderOptions = UglifyCSS;
-        }
-      } else if (!isNextWebpack) {
-        logger.warn('目前版本暂不支持在 webpack 1.0 具体指定 CSS 是否压缩');
-      }
-    } else {
-      config.plugins.UglifyJs = UglifyJs;
-      if (UglifyCSS) {
-        config.plugins.LoaderOptions = UglifyCSS;
-      }
-    }
-
-    // clean
-    if (is.Boolean(userConfig.clean)) {
-      config.__MIXUP_CLEAN__ = userConfig.clean;
-    } else {
-      config.__MIXUP_CLEAN__ = true;
-    }
-
-    extractCSS(userConfig.extractCSS, config, userConfig.hash);
+    mergeProd(config, userConfig);
   }
 
   // alias
@@ -197,39 +82,6 @@ module.exports = function(userConfig, baseConfig) {
   // externals
   if (userConfig.externals) {
     config.externals = userConfig.externals;
-  }
-
-  // postcss
-  if (userConfig.postcss) {
-    config.postcss = require('./load-postcss')(userConfig.postcss);
-  }
-
-  // chunk
-  const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-  let chunks = userConfig.chunk;
-
-  if (chunks === true) {
-    chunks = [
-      {
-        name: 'vendor',
-        minChunks: function(module) {
-          return (
-            module.resource &&
-            /\.js$/.test(module.resource) &&
-            module.resource.indexOf(path.join(process.cwd(), 'node_modules')) === 0
-          );
-        }
-      },
-      { name: 'manifest', chunks: ['vendor'] }
-    ];
-  }
-
-  if (is.String(chunks)) {
-    config.plugins['commons-chunk'] = new CommonsChunkPlugin(chunks);
-  } else if (chunks) {
-    Object.keys(chunks).forEach(name => {
-      config.plugins[`${name}-chunk`] = new CommonsChunkPlugin(chunks[name]);
-    });
   }
 
   // static

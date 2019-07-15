@@ -48,12 +48,11 @@ if (!configs.devServer.enable) {
   // webpack dev server
   logger.log('Loading server...');
   var hostPlugin = webpack.HotModuleReplacementPlugin || function() {};
-  var namedModules = webpack.NamedModulesPlugin || function() {};
 
   if (Array.isArray(configs)) {
-    configs.map(config => config.plugins.push(new hostPlugin(), new namedModules()));
+    configs.map(config => config.plugins.push(new hostPlugin()));
   } else {
-    configs.plugins.push(new hostPlugin(), new namedModules());
+    configs.plugins.push(new hostPlugin());
   }
 
   let devServer = configs.devServer;
