@@ -31,9 +31,6 @@ program.config.forEach(config => {
 
 configs = configs.length === 1 ? configs[0] : configs;
 
-// if (configs.extractCSS) delete configs.extractCSS;
-// if (configs.minimize) delete configs.minimize;
-
 // run watch
 if (!configs.devServer.enable) {
   delete configs.devServer.enable;

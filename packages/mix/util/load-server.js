@@ -10,6 +10,7 @@ const defaultServer = {
   disableHostCheck: true,
   headers: { 'Access-Control-Allow-Origin': '*' },
   hot: true,
+  hotOnly: true,
   clientLogLevel: 'none',
   quiet: true,
   historyApiFallback: {
