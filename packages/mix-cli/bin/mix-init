@@ -3,8 +3,6 @@
 
 const path = require('path');
 const program = require('commander');
-const slush = require.resolve('slush/bin/slush');
-const exec = require('../util/exec');
 const logger = require('../util/logger');
 const isInstalled = require('../util/is-installed');
 const npm = require('../util/npm');
@@ -27,26 +25,9 @@ const template = 'mix-template-' + name;
  */
 const installTemplate = template => {
   logger.log(`downloading '${template}'`);
-  npm.install(`@mixup/${template}`, program.registry);
-  logger.success('脚手架安装成功\n');
+  npm.install(template, program.registry);
+  logger.success('模板下载成功\n');
 };
-
-/**
- * run slush
- * @param  {string} name slush template name
- */
-const generator = function(name) {
-  logger.log('generator project');
-  exec(slush, [name], {
-    stdio: 'inherit',
-    errorMessage: 'slush runtime error'
-  });
-};
-
-if (!isInstalled('generator-package-mix')) {
-  logger.log('下载脚手架相关依赖');
-  npm.install('generator-package-mix', program.registry);
-}
 
 if (!isInstalled(path.join(template.split('@')[0], 'package.json'))) {
   installTemplate(template);
