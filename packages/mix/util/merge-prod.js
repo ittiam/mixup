@@ -2,10 +2,11 @@ const extractCSS = require('./extract-css');
 const is = require('./is');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 const calcSourceMap = function(sourceMap) {
   if (sourceMap === true) {
-    return '#source-map';
+    return 'source-map';
   } else if (sourceMap === false) {
     return false;
   }
@@ -14,6 +15,7 @@ const calcSourceMap = function(sourceMap) {
 
 module.exports = function(config, userConfig) {
   config.mode = 'production';
+  config.bail = true;
   config.devtool = calcSourceMap(userConfig.sourceMap);
 
   // hash
@@ -109,31 +111,10 @@ module.exports = function(config, userConfig) {
 
   extractCSS(userConfig.extractCSS, config, userConfig.hash);
 
-  // chunk
-  let chunks = userConfig.chunk;
-
-  if (chunks === true) {
-    chunks = {
-      cacheGroups: {
-        common: {
-          name: 'common',
-          chunks: 'all',
-          minChunks: 2,
-          minSize: 1,
-          priority: 0
-        },
-        // 提取 node_modules 中代码
-        vendor: {
-          name: 'vendor',
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          priority: 10
-        }
-      }
-    };
+  // Manifest
+  if (userConfig.manifest) {
+    config.plugins.Manifest = new ManifestPlugin(userConfig.manifest);
   }
-
-  config.optimization.splitChunks = chunks;
 
   /**
    * 提取 webpack 运行时代码

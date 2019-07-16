@@ -19,7 +19,9 @@ const npm = (options, registry) => {
 
   shelljs.cd(PLUGIN_PATH);
   options = options.concat(['--save', '--silent', '--save-prefix=>=']);
+
   exec(pm.name, options, { stdio: 'inherit' });
+
   shelljs.cd(pwd);
 };
 

@@ -12,7 +12,7 @@ exports.version = require('../package.json').version;
 exports.webpackVersion = require('webpack/package.json').version;
 
 /**
- * loader.vue => module.loaders.vue
+ * loader.vue => module.rules.vue
  */
 const replacePath = function(_path) {
   if (/^((pre|post)?loader)s?/gi.test(_path)) {
@@ -31,6 +31,7 @@ const replacePath = function(_path) {
  */
 exports.set = function(config) {
   config = config || {};
+
   this.config = merge(config, getBaseConfig(config));
 
   loadExtend(config.extends, {

@@ -7,6 +7,7 @@ const mergeDev = require('./merge-dev');
 const mergeProd = require('./merge-prod');
 const is = require('./is');
 const loadTemplate = require('./load-template');
+const mpa = require('./mpa');
 
 /**
  * merge
@@ -16,6 +17,8 @@ const loadTemplate = require('./load-template');
  */
 module.exports = function(userConfig, baseConfig) {
   let config = baseConfig;
+
+  mpa(userConfig);
 
   // entry
   config.entry = userConfig.entry;
@@ -73,6 +76,25 @@ module.exports = function(userConfig, baseConfig) {
   } else {
     mergeProd(config, userConfig);
   }
+
+  // chunk
+  let chunks = userConfig.chunk;
+
+  if (chunks === true) {
+    chunks = {
+      cacheGroups: {
+        // 提取 node_modules 中代码
+        vendor: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          priority: 10
+        }
+      }
+    };
+  }
+
+  config.optimization.splitChunks = chunks;
 
   // alias
   if (userConfig.alias) {

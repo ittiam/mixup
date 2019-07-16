@@ -1,5 +1,7 @@
 'use strict';
 
+const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
+const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
 const isObject = require('./is').Object;
 
 const defaultServer = {
@@ -16,7 +18,13 @@ const defaultServer = {
   lazy: false,
   stats: 'errors-only',
   host: '0.0.0.0',
-  overlay: false
+  overlay: false,
+  before(app, server) {
+    // This lets us fetch source contents from webpack for the error overlay
+    app.use(evalSourceMapMiddleware(server));
+    // This lets us open files from the runtime error overlay.
+    app.use(errorOverlayMiddleware());
+  }
 };
 
 module.exports = server => {

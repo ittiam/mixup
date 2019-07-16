@@ -1,6 +1,6 @@
 {
-  "name": "mix-plugin-less",
-  "version": "0.0.2",
+  "name": "mix-plugin-vue",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,9 +8,6 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "less": "^3.9.0",
-    "less-loader": "^5.0.0"
-  },
+  "dependencies": {},
   "gitHead": "6865b573d2c2e00076597d5a7aac7843fd366cfb"
 }

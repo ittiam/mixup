@@ -3,7 +3,7 @@ const is = require('./is');
 
 const calcSourceMap = function(sourceMap) {
   if (sourceMap === true) {
-    return '#source-map';
+    return 'cheap-module-source-map';
   } else if (sourceMap === false) {
     return false;
   }
@@ -12,7 +12,7 @@ const calcSourceMap = function(sourceMap) {
 
 module.exports = function(config, userConfig) {
   config.mode = 'development';
-  config.devtool = userConfig.sourceMap === true ? '#eval-source-map' : userConfig.sourceMap;
+  config.devtool = userConfig.sourceMap === true ? 'cheap-module-source-map' : userConfig.sourceMap;
   config.devServer = userConfig.devServer;
 
   // extractCSS

@@ -20,6 +20,6 @@ mix watch
 mix build
 
 # import plugin
-mix import vue,lint
+mix import @mixup/mix-plugin-vue
 ```
 

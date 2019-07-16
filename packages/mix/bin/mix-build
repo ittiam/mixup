@@ -32,9 +32,6 @@ program.config.forEach(config => {
 
 configs = configs.length === 1 ? configs[0] : configs;
 
-if (configs.extractCSS) delete configs.extractCSS;
-if (configs.minimize) delete configs.minimize;
-
 // production
 compiler = webpack(configs);
 
@@ -45,7 +42,7 @@ const cleanStats = function(stats) {
   );
 };
 
-compiler.plugin('done', stats => {
+compiler.hooks.done.tap('BuildStatsPlugin', stats => {
   if (Array.isArray(configs)) {
     stats.stats.forEach(cleanStats);
   } else {

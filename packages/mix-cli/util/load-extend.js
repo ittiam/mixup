@@ -8,7 +8,7 @@ const pluginExists = require('./check').pluginExists;
 
 /* istanbul ignore next */
 const importExtend = (extend, mix, options) => {
-  require(extend)(mix, options);
+  require(`mix-plugin--${extend}`)(mix, options);
   logger.success(`Loaded success: ${extend}`);
 };
 
@@ -40,14 +40,13 @@ module.exports = (_extends, mix) => {
         extend = extend[0];
       }
 
-      const extendName = extend;
+      const extendName = extend.split('@')[0];
 
-      if (!pluginExists(extendName)) {
+      if (!pluginExists(`mix-plugin-${extendName}`)) {
         installExtend(extend);
       }
 
       importExtend(extendName, mix, options);
     });
-
   console.log();
 };

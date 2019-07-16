@@ -19,7 +19,7 @@ module.exports = function(extractcss, config, hash) {
   });
 
   // update css loader
-  const sourceMap = config.sourceMap ? '?sourceMap' : '';
+  const sourceMap = config.sourceMap ? 'sourceMap' : '';
 
   config.module.rules.css = {
     test: /\.css$/,

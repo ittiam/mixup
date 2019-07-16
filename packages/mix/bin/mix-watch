@@ -4,11 +4,9 @@
 // set env
 process.env.NODE_ENV = 'development';
 
-const path = require('path');
 const program = require('commander');
 const logger = require('../util/logger');
 const loadConfig = require('../util/load-config');
-const isBoolean = require('../util/is').Boolean;
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server');
 let configs = [];
@@ -33,8 +31,8 @@ program.config.forEach(config => {
 
 configs = configs.length === 1 ? configs[0] : configs;
 
-if (configs.extractCSS) delete configs.extractCSS;
-if (configs.minimize) delete configs.minimize;
+// if (configs.extractCSS) delete configs.extractCSS;
+// if (configs.minimize) delete configs.minimize;
 
 // run watch
 if (!configs.devServer.enable) {
@@ -51,21 +49,22 @@ if (!configs.devServer.enable) {
     logger.log('webpack info \n' + stats.toString(configs.devServer.stats));
   });
 } else {
-  delete configs.devServer.enable;
   // webpack dev server
   logger.log('Loading server...');
-  var hostPlugin = webpack.HotModuleReplacementPlugin || function() {};
+  var HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin || function() {};
+  // var
 
   if (Array.isArray(configs)) {
-    configs.map(config => config.plugins.push(new hostPlugin()));
+    configs.map(config => config.plugins.push(new HotModuleReplacementPlugin()));
   } else {
-    configs.plugins.push(new hostPlugin());
+    configs.plugins.push(new HotModuleReplacementPlugin());
   }
 
   let devServer = configs.devServer;
   const host = devServer.__host__;
 
   delete devServer.__host__;
+  delete devServer.enable;
 
   logger.success(`Listening at ${host}`);
   new DevServer(webpack(configs), devServer).listen(devServer.port, devServer.host);

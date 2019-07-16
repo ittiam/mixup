@@ -22,10 +22,10 @@ module.exports = function(config) {
   }
 
   // load hot loader
-  config.entry = require('./hot-reload')(
-    config.entry,
-    process.env.NODE_ENV === 'development' ? config.devServer : false
-  );
+  // config.entry = require('./hot-reload')(
+  //   config.entry,
+  //   process.env.NODE_ENV === 'development' ? config.devServer : false
+  // );
 
   if (config.__MIXUP_CLEAN__) {
     shelljs.rm('-rf', config.output.path);
@@ -37,6 +37,9 @@ module.exports = function(config) {
     config.plugins.push(new CopyPlugin($static === true ? 'static' : $static, config.output.path));
     delete config.__MIXUP_STATIC__;
   }
+
+  if (typeof config.extractCSS !== 'undefined') delete config.extractCSS;
+  if (typeof config.minimize !== 'undefined') delete config.minimize;
 
   return config;
 };

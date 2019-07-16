@@ -22,10 +22,10 @@ if (program.template) {
   name = name.map(item => `slush-mix-${item}`);
 } else if (program.cmd) {
   logger.log(`安装指令: ${name}`);
-  name = name.map(item => `mix-${item}-command`);
+  name = name.map(item => `mix-command-${item}`);
 } else {
   logger.log(`安装插件: ${name}`);
-  name = name.map(item => `mix-${item}`);
+  name = name.map(item => `mix-plugin-${item}`);
 }
 
 npm.install(name, program.registry);
