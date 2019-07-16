@@ -1,15 +1,14 @@
-var load = require('./less-loader');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-module.exports = function(mix) {
-  const SOURCE_MAP = mix.config.devtool;
+module.exports = function(mix, options) {
+  // add extension
+  mix.config.resolve.extensions.push('.vue');
 
-  let loaders = load({
-    sourceMap: SOURCE_MAP ? '#source-map' : false,
-    extractCSS: !!mix.config.extractCSS
+  // add loader
+  mix.add('loader.vue', {
+    test: /\.vue$/,
+    loader: 'vue-loader'
   });
 
-  mix.add('loader.less', {
-    test: /\.less$/,
-    use: loaders
-  });
+  mix.add('plugin.VueLoaderPlugin', new VueLoaderPlugin());
 };
