@@ -7,7 +7,7 @@ module.exports = function(options) {
   const extractCSS = options.extractCSS || false;
 
   const loaders = [
-    extractCSS ? MiniCssExtractPlugin.loader : 'style-loader',
+    extractCSS ? MiniCssExtractPlugin.loader : 'vue-style-loader',
     {
       loader: 'css-loader',
       options: {

@@ -1,6 +1,6 @@
 {
   "name": "mix-plugin-vue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "vue-loader": "^15.7.0"
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10"
   },
   "gitHead": "6865b573d2c2e00076597d5a7aac7843fd366cfb"
 }
