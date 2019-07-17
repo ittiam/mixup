@@ -11,6 +11,7 @@ npm i @mixup/mix -D
 ## Usage
 
 mix.conf.js
+
 ```javascript
 var mix = require('@mixup/mix')
 
@@ -36,4 +37,3 @@ node_modules/.bin/mix build -p
 # or use webpack
 NODE_ENV=production webpack --config mix.conf.js
 ```
-

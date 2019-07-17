@@ -4,11 +4,13 @@
 
 
 ## Installation
+
 ```shell
 npm i @mixup/cli -g
 ```
 
 ## Usages
+
 ```shell
 # create vue project
 mix create vue-project vue
@@ -22,4 +24,3 @@ mix build
 # import plugin
 mix import @mixup/mix-plugin-vue
 ```
-
