@@ -39,3 +39,5 @@ node_modules/.bin/mix watch # or webpack --config mix.conf.js
 # 如果全局安装了 mix-cli 同样可以这样做(运行的依旧是本地项目的 mix)
 mix watch
 ```
+
+Fork 自 [cooking](https://github.com/ElemeFE/cooking)
