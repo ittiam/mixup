@@ -21,7 +21,7 @@ module.exports = function(userConfig) {
 
     resolve: {
       symlinks: false,
-      extensions: ['.js', '.json'],
+      extensions: ['.js', 'jsx', '.json'],
       modules: ['node_modules'],
       alias: {
         '@': path.resolve(process.cwd(), 'src')
