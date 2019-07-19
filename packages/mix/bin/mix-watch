@@ -49,12 +49,16 @@ if (!configs.devServer.enable) {
   // webpack dev server
   logger.log('Loading server...');
   var HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin || function() {};
-  // var
+  var NamedModulesPlugin = webpack.NamedModulesPlugin || function() {};
 
   if (Array.isArray(configs)) {
-    configs.map(config => config.plugins.push(new HotModuleReplacementPlugin()));
+    configs.map(
+      config => config.plugins.unshift(new HotModuleReplacementPlugin()),
+      config.plugins.unshift(new NamedModulesPlugin())
+    );
   } else {
-    configs.plugins.push(new HotModuleReplacementPlugin());
+    configs.plugins.unshift(new HotModuleReplacementPlugin());
+    configs.plugins.unshift(new NamedModulesPlugin());
   }
 
   let devServer = configs.devServer;

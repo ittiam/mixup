@@ -1,31 +1,22 @@
 'use strict';
 
+const path = require('path');
+const fs = require('fs-extra');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
+const apiMocker = require('mocker-api');
 const isObject = require('./is').Object;
+const { rootPath } = require('./entry');
+const watchFile = path.resolve(rootPath('mock'), 'index.js');
+const hasWatchFile = fs.existsSync(watchFile);
 
 const defaultServer = {
   port: 8080,
   enable: true,
-  disableHostCheck: true,
-  headers: { 'Access-Control-Allow-Origin': '*' },
   hot: true,
   hotOnly: true,
-  clientLogLevel: 'none',
-  quiet: true,
-  historyApiFallback: {
-    disableDotRule: true
-  },
-  lazy: false,
-  stats: 'errors-only',
-  host: '0.0.0.0',
-  overlay: false,
-  before(app, server) {
-    // This lets us fetch source contents from webpack for the error overlay
-    app.use(evalSourceMapMiddleware(server));
-    // This lets us open files from the runtime error overlay.
-    app.use(errorOverlayMiddleware());
-  }
+  host: '127.0.0.1',
+  overlay: false
 };
 
 module.exports = server => {
@@ -37,6 +28,8 @@ module.exports = server => {
     };
   }
 
+  let mockOptions = {};
+
   // object
   if (isObject(server)) {
     const config = Object.assign(defaultServer, server);
@@ -44,6 +37,20 @@ module.exports = server => {
     config.host = config.hostname || config.host || defaultServer.host;
     config.__host__ = `${config.https ? 'https' : 'http'}://${config.host}:${config.port}`;
     delete config.hostname;
+
+    if (config.mock) {
+      mockOptions = config.mock;
+      delete config.mock;
+    }
+
+    config.before = (app, server) => {
+      app.use(evalSourceMapMiddleware(server));
+      app.use(errorOverlayMiddleware());
+
+      if (hasWatchFile) {
+        apiMocker(app, watchFile, mockOptions);
+      }
+    };
 
     return config;
   }

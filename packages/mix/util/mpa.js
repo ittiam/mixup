@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
-const { getViews } = require('./entry');
+const path = require('path');
+const { getViews, rootPath } = require('./entry');
 
 module.exports = function(config) {
   const options = config.mpa || {};
@@ -11,7 +12,7 @@ module.exports = function(config) {
 
   if (views.length) {
     views.forEach(entry => {
-      const htmlTemplatePath = `${VIEWS_DIR}/${entry}/index.html`;
+      const htmlTemplatePath = path.resolve(rootPath(VIEWS_DIR), entry, `index.html`);
       const hasHtml = fs.existsSync(htmlTemplatePath);
       let chunks = [];
 
