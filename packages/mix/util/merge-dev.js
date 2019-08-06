@@ -17,7 +17,7 @@ module.exports = function(config, userConfig) {
 
   // extractCSS
   if (userConfig.devServer) {
-    extractCSS(userConfig.devServer.extractCSS, config, false);
+    extractCSS(userConfig.devServer.extractCSS, config, false, userConfig.assetsPath);
 
     // clean
     if (is.Boolean(userConfig.devServer.clean)) {

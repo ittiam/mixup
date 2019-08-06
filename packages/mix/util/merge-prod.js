@@ -116,7 +116,7 @@ module.exports = function(config, userConfig) {
     config.__MIXUP_CLEAN__ = true;
   }
 
-  extractCSS(userConfig.extractCSS, config, userConfig.hash);
+  extractCSS(userConfig.extractCSS, config, userConfig.hash, userConfig.assetsPath);
 
   // Manifest
   if (userConfig.manifest) {
