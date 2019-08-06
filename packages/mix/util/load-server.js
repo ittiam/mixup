@@ -11,12 +11,21 @@ const watchFile = path.resolve(rootPath('mock'), 'index.js');
 const hasWatchFile = fs.existsSync(watchFile);
 
 const defaultServer = {
-  port: 8080,
+  // 允许修改 host 模拟跨域
+  disableHostCheck: true,
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  // Enable gzip compression of generated files
+  compress: true,
+  clientLogLevel: 'none',
+  // WebpackDevServer is noisy by default so we emit custom message instead
+  // by listening to the compiler events with `compiler.hooks[...].tap` calls above.
+  quiet: true,
+  port: 9000,
   enable: true,
   hot: true,
   hotOnly: true,
-  host: '127.0.0.1',
-  overlay: false
+  overlay: false,
+  open: true
 };
 
 module.exports = server => {
