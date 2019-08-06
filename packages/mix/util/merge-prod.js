@@ -1,8 +1,13 @@
+const path = require('path');
 const extractCSS = require('./extract-css');
 const is = require('./is');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+
+function resolveFile(assetsPath, filename) {
+  return `${assetsPath}/${filename}`;
+}
 
 const calcSourceMap = function(sourceMap) {
   if (sourceMap === true) {
@@ -18,11 +23,13 @@ module.exports = function(config, userConfig) {
   config.bail = true;
   config.devtool = calcSourceMap(userConfig.sourceMap);
 
+  const assetsPath = (userConfig.assetsPath || 'static') + '/' + 'js';
+
   // hash
   userConfig.hash = Boolean(userConfig.hash);
   if (userConfig.hash) {
-    config.output.filename = 'js/[name].[chunkhash:7].js';
-    config.output.chunkFilename = 'js/[id].[chunkhash:7].js';
+    config.output.filename = resolveFile(assetsPath, '[name].[chunkhash:7].js');
+    config.output.chunkFilename = resolveFile(assetsPath, '[name].chunk.[chunkhash:7].js');
   }
 
   const minimize = userConfig.minimize;

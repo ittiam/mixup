@@ -15,8 +15,8 @@ module.exports = function(userConfig) {
     output: {
       path: path.resolve(process.cwd(), 'dist'),
       publicPath: '/dist/',
-      filename: 'js/[name].js',
-      chunkFilename: 'js/[name].chunk.js'
+      filename: path.posix.join(assetsPath, 'js', '[name].js'),
+      chunkFilename: path.posix.join(assetsPath, 'js', '[name].chunk.js')
     },
 
     resolve: {

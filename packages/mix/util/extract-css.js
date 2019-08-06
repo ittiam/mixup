@@ -1,21 +1,32 @@
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+function resolveFile(assetsPath, filename) {
+  return `${assetsPath}/${filename}`;
+}
 
 module.exports = function(extractcss, config, hash) {
   if (!extractcss) {
     return;
   }
 
+  const assetsPath = (config.assetsPath || 'static') + '/css';
+
   let filename = extractcss;
 
   config.extractCSS = true;
 
   if (extractcss === true) {
-    filename = hash ? 'css/[name].[contenthash:7].css' : 'css/[name].css';
+    filename = hash
+      ? resolveFile(assetsPath, '[name].[contenthash:7].css')
+      : resolveFile(assetsPath, '[name].css');
   }
   // import plugin
   config.plugins.ExtractText = new MiniCssExtractPlugin({
     filename: filename,
-    chunkFilename: hash ? 'css/[name].[contenthash:7].chunk.css' : 'css/[name].chunk.css'
+    chunkFilename: hash
+      ? resolveFile(assetsPath, '[name].[contenthash:7].chunk.css')
+      : resolveFile(assetsPath, '[name].chunk.css')
   });
 
   // update css loader
