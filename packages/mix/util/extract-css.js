@@ -5,12 +5,12 @@ function resolveFile(assetsPath, filename) {
   return `${assetsPath}/${filename}`;
 }
 
-module.exports = function(extractcss, config, hash, assetsPath = 'static') {
+module.exports = function(extractcss, config, hash, asset = 'static') {
   if (!extractcss) {
     return;
   }
 
-  const assetsPath = assetsPath + '/' + 'css';
+  const assetsPath = asset + '/' + 'css';
 
   let filename = extractcss;
 

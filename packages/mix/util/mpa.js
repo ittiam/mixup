@@ -16,6 +16,10 @@ module.exports = function(config) {
       const hasHtml = fs.existsSync(htmlTemplatePath);
       let chunks = [];
 
+      if (config.manifest) {
+        chunks.push('manifest');
+      }
+
       if (config.chunks) {
         chunks.push('vendor');
       }
