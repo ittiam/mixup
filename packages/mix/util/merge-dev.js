@@ -12,7 +12,7 @@ const calcSourceMap = function(sourceMap) {
 
 module.exports = function(config, userConfig) {
   config.mode = 'development';
-  config.devtool = userConfig.sourceMap === true ? 'cheap-module-source-map' : userConfig.sourceMap;
+  config.devtool = userConfig.sourceMap === true ? 'inline-source-map' : userConfig.sourceMap;
   config.devServer = userConfig.devServer;
 
   // extractCSS

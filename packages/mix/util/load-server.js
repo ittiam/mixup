@@ -26,7 +26,7 @@ const defaultServer = {
   hotOnly: true,
   overlay: false,
   open: true,
-  host: '127.0.0.1'
+  host: '0.0.0.0'
 };
 
 module.exports = server => {
