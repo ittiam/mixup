@@ -32,9 +32,13 @@ module.exports = function(config) {
     delete config.__MIXUP_CLEAN__;
   }
 
-  if (process.env.NODE_ENV === 'production' && config.__MIXUP_STATIC__) {
-    const $static = config.__MIXUP_STATIC__;
-    config.plugins.push(new CopyPlugin($static === true ? 'static' : $static, config.output.path));
+  if (config.__MIXUP_STATIC__) {
+    if (process.env.NODE_ENV === 'production') {
+      const $static = config.__MIXUP_STATIC__;
+      config.plugins.push(
+        new CopyPlugin($static === true ? 'static' : $static, config.output.path)
+      );
+    }
     delete config.__MIXUP_STATIC__;
   }
 
