@@ -22,10 +22,10 @@ module.exports = function(config) {
   }
 
   // load hot loader
-  // config.entry = require('./hot-reload')(
-  //   config.entry,
-  //   process.env.NODE_ENV === 'development' ? config.devServer : false
-  // );
+  config.entry = require('./hot-reload')(
+    config.entry,
+    process.env.NODE_ENV === 'development' ? config.devServer : false
+  );
 
   if (config.__MIXUP_CLEAN__) {
     shelljs.rm('-rf', config.output.path);

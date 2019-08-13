@@ -18,12 +18,8 @@ module.exports = function(entry, devServer) {
     });
   }
 
-  if (devServer.enable) {
-    const data = [`webpack-dev-server/client?${devServer.__host__}/`, 'webpack/hot/dev-server'];
-
-    if (devServer.log) {
-      data.push('webpack-hud');
-    }
+  if (devServer) {
+    const data = ['react-error-overlay', 'react-dev-utils/webpackHotDevClient'];
 
     Object.keys(result).forEach(name => {
       result[name] = data.concat(result[name]);
