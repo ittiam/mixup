@@ -1,0 +1,26 @@
+{
+  "name": "mixup-dev-utils",
+  "version": "2.0.0",
+  "description": "Utilities and helpers for Mixup",
+  "author": "chonger42 <ittiamc@gmail.com>",
+  "repository": "git@github.com:ittiam/mixup.git",
+  "license": "MIT",
+  "files": [
+    "formatWebpackMessages.js",
+    "FriendlyErrorsPlugin.js",
+    "logger.js",
+    "makeLoaderFinder.js",
+    "prettyNodeErrors.js",
+    "printError.js",
+    "spinner.js"
+  ],
+  "dependencies": {
+    "@babel/code-frame": "^7.0.0",
+    "chalk": "2.4.1",
+    "jest-message-util": "^24.0.0",
+    "ora": "^1.4.0",
+    "react-dev-utils": "^6.1.1",
+    "sockjs-client": "1.3.0",
+    "strip-ansi": "5.0.0"
+  }
+}

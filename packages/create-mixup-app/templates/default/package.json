@@ -1,0 +1,11 @@
+{
+  "name": "my-mixup-app",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "mixup start",
+    "build": "mixup build",
+    "test": "mixup test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  }
+}

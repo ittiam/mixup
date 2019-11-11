@@ -1,0 +1,26 @@
+{
+  "name": "babel-preset-mixup",
+  "version": "2.0.0",
+  "description": "Babel presets for Mixup",
+  "main": "index.js",
+  "author": "chonger42 <ittiamc@gmail.com>",
+  "repository": "git@github.com:ittiam/mixup.git",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/plugin-transform-react-jsx-source": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.1.5",
+    "babel-plugin-dynamic-import-node": "2.2.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.19"
+  }
+}
