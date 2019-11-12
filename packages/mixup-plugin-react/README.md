@@ -1,8 +1,9 @@
 # mixup-plugin-react
 
-```base
+```javascript
+const react = require('mixup-plugin-react');
 // mix.config.js
 ...
-use: ['mixup-plugin-react']
+use: [..., react()]
 ...
 ```

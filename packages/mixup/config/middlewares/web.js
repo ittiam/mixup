@@ -1,14 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 
-function ensureRelative(outputDir, _path) {
-  if (path.isAbsolute(_path)) {
-    return path.relative(outputDir, _path);
-  } else {
-    return _path;
-  }
-}
-
 module.exports = opts => mixup => {
   const isProduction = process.env.NODE_ENV === 'production';
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -20,7 +12,6 @@ module.exports = opts => mixup => {
   const { options, config } = mixup;
   const webpackConfig = config;
 
-  const multiPageConfig = options.pages;
   const htmlPath = mixup.resolve('public/index.html');
   const defaultHtmlPath = path.resolve(__dirname, 'index-default.html');
   const publicCopyIgnore = ['.DS_Store'];
@@ -311,81 +302,18 @@ module.exports = opts => mixup => {
     }
   }
 
-  if (!multiPageConfig) {
-    // default, single page setup.
-    htmlOptions.template = fs.existsSync(htmlPath) ? htmlPath : defaultHtmlPath;
+  // default, single page setup.
+  htmlOptions.template = fs.existsSync(htmlPath) ? htmlPath : defaultHtmlPath;
 
-    publicCopyIgnore.push({
-      glob: path.relative(
-        mixup.resolve('public'),
-        mixup.resolve(htmlOptions.template)
-      ),
-      matchBase: false,
-    });
+  publicCopyIgnore.push({
+    glob: path.relative(
+      mixup.resolve('public'),
+      mixup.resolve(htmlOptions.template)
+    ),
+    matchBase: false,
+  });
 
-    webpackConfig.plugin('html').use(HTMLPlugin, [htmlOptions]);
-  } else {
-    // multi-page setup
-    webpackConfig.entryPoints.clear();
-
-    const pages = Object.keys(multiPageConfig);
-    const normalizePageConfig = c => (typeof c === 'string' ? { entry: c } : c);
-
-    pages.forEach(name => {
-      const pageConfig = normalizePageConfig(multiPageConfig[name]);
-      const {
-        entry,
-        template = `public/${name}.html`,
-        filename = `${name}.html`,
-        chunks = ['chunk-vendors', 'chunk-common', name],
-      } = pageConfig;
-
-      // Currently Cypress v3.1.0 comes with a very old version of Node,
-      // which does not support object rest syntax.
-      // (https://github.com/cypress-io/cypress/issues/2253)
-      // So here we have to extract the customHtmlOptions manually.
-      const customHtmlOptions = {};
-      for (const key in pageConfig) {
-        if (!['entry', 'template', 'filename', 'chunks'].includes(key)) {
-          customHtmlOptions[key] = pageConfig[key];
-        }
-      }
-
-      // inject entry
-      const entries = Array.isArray(entry) ? entry : [entry];
-      webpackConfig.entry(name).merge(entries.map(e => mixup.resolve(e)));
-
-      // resolve page index template
-      const hasDedicatedTemplate = fs.existsSync(mixup.resolve(template));
-      const templatePath = hasDedicatedTemplate
-        ? template
-        : fs.existsSync(htmlPath)
-        ? htmlPath
-        : defaultHtmlPath;
-
-      publicCopyIgnore.push({
-        glob: path.relative(
-          mixup.resolve('public'),
-          mixup.resolve(templatePath)
-        ),
-        matchBase: false,
-      });
-
-      // inject html plugin for the page
-      const pageHtmlOptions = Object.assign(
-        {},
-        htmlOptions,
-        {
-          chunks,
-          template: templatePath,
-          filename: ensureRelative(outputDir, filename),
-        },
-        customHtmlOptions
-      );
-
-      webpackConfig.plugin(`html-${name}`).use(HTMLPlugin, [pageHtmlOptions]);
-    });
-  }
+  webpackConfig.plugin('html').use(HTMLPlugin, [htmlOptions]);
 
   // copy static assets in public/
   const publicDir = mixup.resolve('public');

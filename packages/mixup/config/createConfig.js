@@ -1,6 +1,7 @@
 const { join } = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
+const logger = require('mixup-dev-utils/logger');
 const Mixup = require('../Mixup');
 const webMiddleware = require('./middlewares/web');
 const cssMiddleware = require('./middlewares/css');
@@ -17,7 +18,8 @@ const loadUserOptions = configPath => {
 
       return fileConfig;
     } catch (e) {
-      error(`Error loading ${chalk.bold('mixup.config.js')}:`);
+      logger.error(`Error loading ${chalk.bold('mixup.config.js')}:`);
+
       throw e;
     }
   }
@@ -57,6 +59,7 @@ module.exports = (
   mixup.config.context(context);
 
   mixup.use(webMiddleware());
+
   mixup.use(cssMiddleware());
 
   if (use) {

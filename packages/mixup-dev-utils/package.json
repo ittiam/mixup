@@ -12,6 +12,7 @@
     "makeLoaderFinder.js",
     "prettyNodeErrors.js",
     "printError.js",
+    "resolveClientEnv.js",
     "spinner.js"
   ],
   "dependencies": {

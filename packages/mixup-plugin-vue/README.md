@@ -1,8 +1,9 @@
 # mixup-plugin-vue
 
-```base
+```javascript
+const vue = require('mixup-plugin-vue');
 // mix.config.js
 ...
-use: ['mixup-plugin-vue']
+use: [..., vue()]
 ...
 ```
