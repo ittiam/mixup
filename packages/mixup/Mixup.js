@@ -4,6 +4,7 @@ const Config = require('webpack-chain');
 const semver = require('semver');
 const { isAbsolute, join } = require('path');
 const printError = require('mixup-dev-utils/printError');
+const { source } = require('./extensions');
 
 const getRoot = ({ root }) => root;
 const normalizePath = (base, path) =>
@@ -85,6 +86,7 @@ module.exports = class Mixup {
           before: app => {}
         */
       },
+      extensions: new Set(source),
       ...clone(opts),
     };
 

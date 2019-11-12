@@ -68,6 +68,27 @@ module.exports = opts => mixup => {
     },
   };
 
+  const mainBabelOptions = {
+    babelrc: true,
+    cacheDirectory: true,
+    presets: [],
+  };
+  // First we check to see if the user has a custom .babelrc file, otherwise
+  // we just use babel-preset-mixup.
+  const hasBabelRc = fs.existsSync(mixup.resolve('.babelrc.js'));
+  if (!hasBabelRc) {
+    mainBabelOptions.presets.push(require.resolve('./babelPreset'));
+  }
+
+  // Allow app to override babel options
+  const babelOptions = options.modifyBabelOptions
+    ? options.modifyBabelOptions(mainBabelOptions)
+    : mainBabelOptions;
+
+  if (hasBabelRc && babelOptions.babelrc) {
+    console.log('Using .babelrc.js defined in your app root');
+  }
+
   webpackConfig
     .entry('app')
     .add('./src/main.js')
@@ -77,7 +98,11 @@ module.exports = opts => mixup => {
     .publicPath(options.baseUrl);
 
   webpackConfig.resolve.extensions
-    .merge(['.js', '.jsx', '.json'])
+    .merge([
+      '.wasm',
+      ...mixup.options.extensions.map(ext => `.${ext}`),
+      '.json',
+    ])
     .end()
     .modules.add('node_modules')
     .add(mixup.resolve('node_modules'))
@@ -89,6 +114,23 @@ module.exports = opts => mixup => {
     .add('node_modules')
     .add(mixup.resolve('node_modules'))
     .add(resolveLocal('node_modules'));
+
+  webpackConfig.module
+    .rule('js')
+    .test(/\.(js|jsx|mjs)$/)
+    .exclude.add(filepath => {
+      // always transpile js in vue files
+      if (/\.vue\.jsx?$/.test(filepath)) {
+        return false;
+      }
+
+      // Don't transpile node_modules
+      return /node_modules/.test(filepath);
+    })
+    .end()
+    .use('babel-loader')
+    .loader(require.resolve('babel-loader'))
+    .options(babelOptions);
 
   webpackConfig.module
     .rule('images')

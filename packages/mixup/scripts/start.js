@@ -35,6 +35,7 @@ async function main() {
   );
 
   const { options } = mixup;
+  const { args } = options;
 
   // resolve webpack config
   const webpackConfig = mixup.config.toConfig();
@@ -47,17 +48,20 @@ async function main() {
   );
 
   // resolve server options
-  const useHttps = projectDevServerOptions.https || process.env.HTTPS;
+  const useHttps =
+    args.https || projectDevServerOptions.https || process.env.HTTPS;
   const protocol = useHttps ? 'https' : 'http';
-  const host = projectDevServerOptions.host || HOST;
-  portfinder.basePort = projectDevServerOptions.port || DEFAULT_PORT;
+  const host = args.host || projectDevServerOptions.host || HOST;
+  portfinder.basePort =
+    args.port || projectDevServerOptions.port || DEFAULT_PORT;
   const port = await portfinder.getPortPromise();
   const rawPublicUrl = projectDevServerOptions.public;
-  const publicUrl = rawPublicUrl
-    ? /^[a-zA-Z]+:\/\//.test(rawPublicUrl)
-      ? rawPublicUrl
-      : `${protocol}://${rawPublicUrl}`
-    : null;
+  const publicUrl =
+    args.public || rawPublicUrl
+      ? /^[a-zA-Z]+:\/\//.test(rawPublicUrl)
+        ? rawPublicUrl
+        : `${protocol}://${rawPublicUrl}`
+      : null;
 
   const urls = prepareURLs(
     protocol,
@@ -99,6 +103,12 @@ async function main() {
   if (process.env.APPVEYOR) {
     devClients.push(`webpack/hot/poll?500`);
   }
+
+  // const stringifiedConfig = mixup.config.toString({
+  //   configPrefix: 'mixup.config',
+  //   verbose: true,
+  // });
+  // console.log(stringifiedConfig);
   // inject dev/hot client
   addDevClientToEntry(webpackConfig, devClients);
 
@@ -180,7 +190,7 @@ async function main() {
 
   let isFirstCompile = true;
   clientCompiler.hooks.done.tap('done', stats => {
-    if (isInteractive) {
+    if (!options.debug && isInteractive) {
       clearConsole();
     }
 
@@ -244,13 +254,13 @@ async function main() {
       return reject(err);
     }
 
-    if (isInteractive) {
+    if (!options.debug && isInteractive) {
       clearConsole();
     }
 
-    console.log(chalk.cyan('Starting the development server...\n'));
+    console.log(chalk.cyan('\nStarting the development server...\n'));
 
-    if (projectDevServerOptions.open) {
+    if (args.open || projectDevServerOptions.open) {
       const pageUri =
         projectDevServerOptions.openPage &&
         typeof projectDevServerOptions.openPage === 'string'

@@ -1,0 +1,18 @@
+{
+  "name": "mixup-plugin-vue",
+  "version": "2.0.0",
+  "description": "Mixup add vue.js Support.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "vue-loader": "^15.7.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.0.0"
+  }
+}

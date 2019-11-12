@@ -18,10 +18,16 @@ function build() {
   );
 
   const { options } = mixup;
+  const { args } = options;
+
+  if (args.dest) {
+    // Override outputDir before resolving webpack config as config relies on it (#2327)
+    options.output = args.dest;
+  }
 
   let clientConfig = mixup.config.toConfig();
 
-  if (options.clean) {
+  if (args.clean || options.clean) {
     fs.removeSync(mixup.resolve(options.output));
   }
 
