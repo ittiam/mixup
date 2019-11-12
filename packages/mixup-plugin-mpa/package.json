@@ -1,6 +1,6 @@
 {
   "name": "mixup-plugin-mpa",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Mixup add mpa support.",
   "main": "index.js",
   "scripts": {
