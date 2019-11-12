@@ -12,7 +12,12 @@
     "bin",
     "config",
     "scripts",
-    "template",
+    "util",
+    "webpack",
+    "errors.js",
+    "extensions.js",
+    "handlers.js",
+    "Mixup.js",
     "babel.js"
   ],
   "keywords": [
