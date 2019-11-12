@@ -119,6 +119,7 @@ module.exports = (opts = {}) => mixup => {
   webpackConfig.plugins.delete('html');
 
   const multiPageConfig = getViews(VIEWS_DIR, entryGlob);
+  mixup.options.pages = multiPageConfig;
 
   const normalizePageConfig = c => (typeof c === 'string' ? { entry: c } : c);
   const pages = Object.keys(multiPageConfig);

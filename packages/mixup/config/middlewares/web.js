@@ -107,7 +107,7 @@ module.exports = opts => mixup => {
     .add(resolveLocal('node_modules'));
 
   webpackConfig.module
-    .rule('js')
+    .rule('babel')
     .test(/\.(js|jsx|mjs)$/)
     .exclude.add(filepath => {
       // always transpile js in vue files
