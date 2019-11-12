@@ -24,18 +24,6 @@ module.exports = function copyDir(opts) {
         );
       })
       .then(function() {
-        return fs.move(
-          path.resolve(projectPath, './eslintrc.js'),
-          path.resolve(projectPath, './.eslintrc.js')
-        );
-      })
-      .then(function() {
-        return fs.move(
-          path.resolve(projectPath, './stylelintrc.js'),
-          path.resolve(projectPath, './.stylelintrc.js')
-        );
-      })
-      .then(function() {
         stopCopySpinner();
         output.success(
           `Created files for "${output.cmd(projectName)}" mixup app`

@@ -4,7 +4,6 @@ const path = require('path');
 const fs = require('fs');
 const copyDir = require('./utils/copy-dir');
 const install = require('./utils/install');
-const loadExample = require('./utils/load-example');
 const messages = require('./messages');
 
 module.exports = function createMixupApp(opts) {
@@ -23,8 +22,8 @@ module.exports = function createMixupApp(opts) {
   const projectPath = (opts.projectPath = process.cwd() + '/' + projectName);
 
   const templateName =
-    opts.example && opts.example !== 'default'
-      ? `project-${opts.example}`
+    opts.template && opts.template !== 'default'
+      ? `project-${opts.template}`
       : 'default';
 
   const templatePath = path.resolve(__dirname, `../templates/${templateName}`);

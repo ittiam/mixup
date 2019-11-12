@@ -17,14 +17,14 @@ program
   .action(function(name) {
     projectName = name;
   })
-  .option('-e, --example <example-path>', messages.exampleHelp())
+  .option('-t, --template <template-path>', messages.templateHelp())
   .allowUnknownOption()
   .on('--help', messages.help)
   .parse(process.argv);
 
-const example = program.example;
+const template = program.template;
 
 createMixupApp({
   projectName,
-  example
+  template,
 });

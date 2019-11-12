@@ -22,15 +22,21 @@ exports.exampleHelp = function() {
   )}`;
 };
 
+exports.templateHelp = function() {
+  return `Example from https://github.com/ittiam/mixup/tree/master/packages/create-mixup-app/template/ ${output.param(
+    'template-path'
+  )}`;
+};
+
 exports.missingProjectName = function() {
   return `
 Please specify the project directory:
   ${chalk.cyan(program.name)} ${chalk.green('<project-directory>')}
-For example:
+For template:
   ${chalk.cyan(program.name)} ${chalk.green('my-mixup-app')}
-  ${chalk.cyan(program.name)} ${chalk.cyan(
-    '--example with-react'
-  )} ${chalk.green('my-react-app')}
+  ${chalk.cyan(program.name)} ${chalk.cyan('--template react')} ${chalk.green(
+    'my-react-app'
+  )}
 Run ${chalk.cyan(`${program.name} --help`)} to see all options.
 `;
 };
