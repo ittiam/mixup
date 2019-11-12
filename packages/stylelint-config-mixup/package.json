@@ -1,0 +1,21 @@
+{
+  "name": "stylelint-config-mixup",
+  "version": "1.0.1",
+  "description": "Stylelint sharable config for mixup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "stylelint": "^9.1.1 || ^10.0.0"
+  },
+  "dependencies": {
+    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.1.0",
+    "stylelint-order": "^3.1.0"
+  }
+}

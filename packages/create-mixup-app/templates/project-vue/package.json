@@ -12,7 +12,11 @@
     "eslint-config-mixup": "^1.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "mixup-plugin-vue": "^2.0.5",
     "stylelint-config-mixup": "^1.0.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.10"
   },
   "browserslist": [
     "ff >= 26",

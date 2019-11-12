@@ -22,24 +22,22 @@ module.exports = function createMixupApp(opts) {
 
   const projectPath = (opts.projectPath = process.cwd() + '/' + projectName);
 
-  if (opts.example) {
-    loadExample({
-      projectName: projectName,
-      example: opts.example,
-    }).then(installWithMessageFactory(opts, true));
-  } else {
-    const templatePath = path.resolve(__dirname, '../templates/default');
+  const templateName =
+    opts.example && opts.example !== 'default'
+      ? `project-${opts.example}`
+      : 'default';
 
-    copyDir({
-      templatePath: templatePath,
-      projectPath: projectPath,
-      projectName: projectName,
-    })
-      .then(installWithMessageFactory(opts))
-      .catch(function(err) {
-        throw err;
-      });
-  }
+  const templatePath = path.resolve(__dirname, `../templates/${templateName}`);
+
+  copyDir({
+    templatePath: templatePath,
+    projectPath: projectPath,
+    projectName: projectName,
+  })
+    .then(installWithMessageFactory(opts))
+    .catch(function(err) {
+      throw err;
+    });
 };
 
 function installWithMessageFactory(opts, isExample = false) {

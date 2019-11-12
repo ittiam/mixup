@@ -1,0 +1,14 @@
+{
+  "name": "eslint-config-mixup",
+  "version": "1.0.3",
+  "description": "ESLint sharable config for mixup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "eslint": "^6.3.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

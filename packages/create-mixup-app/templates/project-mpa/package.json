@@ -12,6 +12,7 @@
     "eslint-config-mixup": "^1.0.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "mixup-plugin-mpa": "^2.0.5",
     "stylelint-config-mixup": "^1.0.0"
   },
   "browserslist": [
