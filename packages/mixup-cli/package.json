@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup-cli",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "private": true,
   "description": "Global Cli for MIXUP support.",
   "keywords": [
@@ -26,7 +26,7 @@
     "url": "https://github.com/ittiam/mixup/issues"
   },
   "dependencies": {
-    "@mixup/mixup": "^2.0.11",
+    "@mixup/mixup": "^2.0.12",
     "chalk": "^3.0.0",
     "commander": "^4.0.1",
     "inquirer": "^7.0.0",
