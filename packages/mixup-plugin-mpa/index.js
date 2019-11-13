@@ -94,19 +94,22 @@ module.exports = (opts = {}) => mixup => {
   };
 
   if (isProduction) {
-    Object.assign(htmlOptions, {
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        collapseBooleanAttributes: true,
-        removeScriptTypeAttributes: true,
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+    Object.assign(
+      htmlOptions,
+      {
+        minify: {
+          removeComments: false,
+          collapseWhitespace: false,
+          removeAttributeQuotes: false,
+          collapseBooleanAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+        },
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency',
-    });
+      mixup.options.html
+    );
   }
 
   if (!fs.existsSync(VIEWS_DIR)) {

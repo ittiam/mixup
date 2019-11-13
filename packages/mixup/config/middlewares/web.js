@@ -257,19 +257,22 @@ module.exports = opts => mixup => {
     );
     webpackConfig.output.filename(outputFilename).chunkFilename(outputFilename);
 
-    Object.assign(htmlOptions, {
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        collapseBooleanAttributes: true,
-        removeScriptTypeAttributes: true,
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+    Object.assign(
+      htmlOptions,
+      {
+        minify: {
+          removeComments: false,
+          collapseWhitespace: false,
+          removeAttributeQuotes: false,
+          collapseBooleanAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+        },
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency',
-    });
+      options.html
+    );
 
     // keep chunk ids stable so async chunks have consistent hash (#1916)
     webpackConfig
@@ -297,7 +300,7 @@ module.exports = opts => mixup => {
         },
       ]);
 
-    if (process.env.VUE_CLI_TEST) {
+    if (process.env.MIXUP_CLI_TEST) {
       webpackConfig.optimization.minimize(false);
     }
   }

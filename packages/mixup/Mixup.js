@@ -46,6 +46,9 @@ module.exports = class Mixup {
       // filename for index.html (relative to outputDir)
       indexPath: 'index.html',
 
+      // html-webpack-plugin options
+      html: {},
+
       // whether filename will contain hash part
       filenameHashing: true,
 
