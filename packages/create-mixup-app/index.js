@@ -1,9 +1,9 @@
 'use strict';
 
-const createMixup = require('./lib');
+const create = require('./command/create');
 const messages = require('./lib/messages');
 
 module.exports = {
   messages: messages,
-  createMixupApp: createMixup
+  create: create,
 };

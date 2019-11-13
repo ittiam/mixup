@@ -2,11 +2,11 @@
 
 const path = require('path');
 const fs = require('fs');
-const copyDir = require('./utils/copy-dir');
-const install = require('./utils/install');
-const messages = require('./messages');
+const copyDir = require('../lib/utils/copy-dir');
+const install = require('../lib/utils/install');
+const messages = require('../lib/messages');
 
-module.exports = function createMixupApp(opts) {
+module.exports = async function create(opts) {
   const projectName = opts.projectName;
 
   if (!projectName) {
@@ -28,15 +28,11 @@ module.exports = function createMixupApp(opts) {
 
   const templatePath = path.resolve(__dirname, `../templates/${templateName}`);
 
-  copyDir({
+  await copyDir({
     templatePath: templatePath,
     projectPath: projectPath,
     projectName: projectName,
-  })
-    .then(installWithMessageFactory(opts))
-    .catch(function(err) {
-      throw err;
-    });
+  }).then(installWithMessageFactory(opts));
 };
 
 function installWithMessageFactory(opts, isExample = false) {

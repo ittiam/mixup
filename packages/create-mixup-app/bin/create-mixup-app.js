@@ -1,30 +1,36 @@
 #! /usr/bin/env node
 
 const chalk = require('chalk');
-const program = require('commander');
+const create = require('./command/create');
+const options = require('./command/options');
+const parseArgv = require('./lib/parseArgv');
 const lib = require('..');
-const pkg = require('../package.json');
 
-const messages = lib.messages;
-const createMixupApp = lib.createMixupApp;
+const create = lib.create;
 
-let projectName;
+const argv = parseArgv(options);
+const appName = argv._[0];
 
-program
-  .version(pkg.version)
-  .arguments('<project-directory>')
-  .usage(`${chalk.green('<project-directory>')} [options]`)
-  .action(function(name) {
-    projectName = name;
-  })
-  .option('-t, --template <template-path>', messages.templateHelp())
-  .allowUnknownOption()
-  .on('--help', messages.help)
-  .parse(process.argv);
+if (typeof appName === 'undefined') {
+  // start with new line
+  console.log();
 
-const template = program.template;
+  console.error('Please specify the project directory:');
+  console.log(
+    `  ${chalk.cyan('mixup-cli create')} ${chalk.green('<project-name>')}`
+  );
+  console.log();
+  console.log('For example:');
+  console.log(`  ${chalk.cyan('mixup-cli create')} ${chalk.green('my-app')}`);
+  console.log();
+  console.log(
+    `Run ${chalk.cyan(`${'mixup-cli create'} --help`)} to see all options.`
+  );
 
-createMixupApp({
-  projectName,
-  template,
-});
+  process.exit(1);
+}
+
+// mock positional arguments
+argv.projectName = argv['project-name'] = appName;
+
+create(argv);

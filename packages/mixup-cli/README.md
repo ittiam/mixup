@@ -1,11 +1,6 @@
-# `mixup-cli`
+# @mixup/mixup-cli
 
-> TODO: description
+*mixup* 命令行工具
 
-## Usage
-
-```
-const mixupCli = require('mixup-cli');
-
-// TODO: DEMONSTRATE API
-```
+安装
+npm i @mixup/mixup-cli -g

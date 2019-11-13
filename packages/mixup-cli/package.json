@@ -12,6 +12,9 @@
     "mixup-cli": "./bin/mixup-cli.js"
   },
   "files": [
+    "README.md",
+    "bin",
+    "commands",
     "lib"
   ],
   "repository": {
@@ -27,9 +30,10 @@
   "dependencies": {
     "@mixup/mixup": "^2.0.12",
     "chalk": "^3.0.0",
-    "commander": "^4.0.1",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^8.1.0",
     "inquirer": "^7.0.0",
-    "minimist": "^1.2.0",
-    "slash": "^3.0.0"
+    "slash": "^3.0.0",
+    "yargs": "^14.2.0"
   }
 }
