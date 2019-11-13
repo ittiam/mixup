@@ -1,7 +1,6 @@
 {
   "name": "@mixup/mixup-cli",
   "version": "2.0.12",
-  "private": true,
   "description": "Global Cli for MIXUP support.",
   "keywords": [
     "mixup"
