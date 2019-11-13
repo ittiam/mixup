@@ -35,7 +35,7 @@ module.exports = asyncCommand({
         describe: '项目目录，缺省时为当前目录',
         default: '.',
       })
-      .example('$0 init app my-project', 'create a new project')
+      .example('$0 init vue my-project', 'create a new project')
       .example('$0 init spkg my-component', 'create a new component');
   },
   async handler(argv) {

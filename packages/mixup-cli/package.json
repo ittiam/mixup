@@ -30,6 +30,7 @@
   "dependencies": {
     "@mixup/mixup": "^2.0.12",
     "chalk": "^3.0.0",
+    "create-mixup-app": "^2.0.16",
     "download-git-repo": "^3.0.2",
     "fs-extra": "^8.1.0",
     "inquirer": "^7.0.0",
