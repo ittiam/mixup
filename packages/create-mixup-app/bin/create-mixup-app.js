@@ -4,9 +4,6 @@ const chalk = require('chalk');
 const create = require('./command/create');
 const options = require('./command/options');
 const parseArgv = require('./lib/parseArgv');
-const lib = require('..');
-
-const create = lib.create;
 
 const argv = parseArgv(options);
 const appName = argv._[0];

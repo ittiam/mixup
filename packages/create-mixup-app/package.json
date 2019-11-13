@@ -15,6 +15,14 @@
   "bin": {
     "create-mixup-app": "./bin/create-mixup-app.js"
   },
+  "files": [
+    "README.md",
+    "index.js",
+    "command",
+    "bin",
+    "templates",
+    "lib"
+  ],
   "dependencies": {
     "ansi-escapes": "^2.0.0",
     "chalk": "^1.1.3",
