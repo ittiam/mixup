@@ -1,5 +1,5 @@
 const mri = require('mri');
-const { camelCase } = require('./utils/camel-case');
+const camelCase = require('./utils/camel-case');
 const camelCaseByHyphen = camelCase.bind(null, '-');
 
 function addCamelCaseField(argv) {

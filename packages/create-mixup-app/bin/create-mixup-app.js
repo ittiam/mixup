@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
 const chalk = require('chalk');
-const create = require('./command/create');
-const options = require('./command/options');
-const parseArgv = require('./lib/parseArgv');
+const create = require('../command/create');
+const options = require('../command/options');
+const parseArgv = require('../lib/parseArgv');
 
 const argv = parseArgv(options);
 const appName = argv._[0];
