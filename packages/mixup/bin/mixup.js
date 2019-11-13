@@ -6,4 +6,14 @@ const script = process.argv[2];
 
 const service = mixup(process.env.MIXUP_CLI_CONTEXT || process.cwd());
 
-service.run(script);
+switch (script) {
+  case 'build':
+  case 'start':
+  case 'inspect': {
+    service.run(script);
+    break;
+  }
+  default:
+    console.log('Unknown script "' + script + '".');
+    break;
+}

@@ -3,7 +3,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const logger = require('mixup-dev-utils/logger');
 const Mixup = require('./Mixup');
-const { webpack, inspect } = require('./handlers');
+const handlers = require('./handlers');
 const webMiddleware = require('./config/middlewares/web');
 const cssMiddleware = require('./config/middlewares/css');
 
@@ -38,7 +38,6 @@ module.exports = (
   middleware = loadUserOptions(join(process.cwd(), 'mixup.config.js'))
 ) => {
   const { use, options = {} } = extractMiddlewareAndOptions(middleware);
-
   const rawArgv = process.argv.slice(2);
   const args = require('minimist')(rawArgv, {
     boolean: [
@@ -57,8 +56,8 @@ module.exports = (
   const command = args._[0];
   const mode =
     args.mode ||
-    (command === 'build' && args.watch ? 'development' : modes[command]) ||
-    process.env.MIXUP_CLI_MODE;
+    process.env.MIXUP_CLI_MODE ||
+    (command === 'build' && args.watch ? 'development' : modes[command]);
 
   const mixup = new Mixup(context, options);
 
@@ -81,9 +80,10 @@ module.exports = (
 
   mixup.config.context(context);
 
-  mixup.register('webpack', webpack);
-  mixup.register('inspect', inspect);
-  mixup.register('mixup', mix => mix);
+  mixup.register('webpack', handlers.webpack);
+  mixup.register('inspect', handlers.inspect);
+  mixup.register('config', handlers.config);
+  mixup.register('options', handlers.options);
 
   mixup.use(webMiddleware());
   mixup.use(cssMiddleware());

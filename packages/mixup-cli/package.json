@@ -1,0 +1,36 @@
+{
+  "name": "@mixup/mixup-cli",
+  "version": "2.0.11",
+  "private": true,
+  "description": "Global Cli for MIXUP support.",
+  "keywords": [
+    "mixup"
+  ],
+  "author": "ittiam <ittiamc@gmail.com>",
+  "homepage": "https://github.com/ittiam/mixup#readme",
+  "license": "ISC",
+  "bin": {
+    "mixup-cli": "./bin/mixup-cli.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ittiam/mixup.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/ittiam/mixup/issues"
+  },
+  "dependencies": {
+    "@mixup/mixup": "^2.0.11",
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
+    "inquirer": "^7.0.0",
+    "minimist": "^1.2.0",
+    "slash": "^3.0.0"
+  }
+}
