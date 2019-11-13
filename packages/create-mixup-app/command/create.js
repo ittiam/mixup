@@ -2,12 +2,16 @@
 
 const path = require('path');
 const fs = require('fs');
+const { prompt } = require('inquirer');
 const copyDir = require('../lib/utils/copy-dir');
 const install = require('../lib/utils/install');
 const messages = require('../lib/messages');
 
+const templates = ['Default', 'Vue', 'React', 'Mpa'];
+
 module.exports = async function create(opts) {
   const projectName = opts.projectName;
+  let template = opts.template;
 
   if (!projectName) {
     console.log(messages.missingProjectName());
@@ -21,10 +25,23 @@ module.exports = async function create(opts) {
 
   const projectPath = (opts.projectPath = process.cwd() + '/' + projectName);
 
+  if (!template) {
+    const { tpl } = await prompt({
+      type: 'list',
+      message: 'What template do you need?',
+      choices: templates,
+      name: 'tpl',
+      filter: function(val) {
+        return val.toLowerCase();
+      },
+      default: templates[0],
+    });
+
+    template = tpl;
+  }
+
   const templateName =
-    opts.template && opts.template !== 'default'
-      ? `project-${opts.template}`
-      : 'default';
+    template && template !== 'default' ? `project-${template}` : 'default';
 
   const templatePath = path.resolve(__dirname, `../templates/${templateName}`);
 

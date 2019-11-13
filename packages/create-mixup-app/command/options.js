@@ -1,7 +1,7 @@
 module.exports = {
   template: {
     alias: 't',
-    default: 'default',
+    default: '',
     describe: 'use preset template.eg: vue, react, mpa',
     type: 'string',
   },
