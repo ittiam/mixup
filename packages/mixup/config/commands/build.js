@@ -1,24 +1,15 @@
-#! /usr/bin/env node
-'use strict';
-// Do this as the first thing so that any code reading it knows the right env.
-process.env.NODE_ENV = 'production';
-
-const fs = require('fs-extra');
-const webpack = require('webpack');
 const chalk = require('chalk');
-const createConfig = require('../config/createConfig');
-const printError = require('mixup-dev-utils/printError');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
-function build() {
-  // Create our production webpack configurations and pass in mixup options.
-  let mixup = createConfig(
-    process.env.MIXUP_CLI_CONTEXT || process.cwd(),
-    'production'
-  );
-
+module.exports = args => mixup => {
   const { options } = mixup;
-  const { args } = options;
+
+  build(args, mixup, options).then(printInstructions);
+};
+
+function build(args, mixup, options) {
+  const fs = require('fs-extra');
+  const webpack = require('webpack');
+  const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
   if (args.dest) {
     // Override outputDir before resolving webpack config as config relies on it (#2327)
@@ -72,7 +63,7 @@ function build() {
         return reject(new Error(messages.errors.join('\n\n')));
       }
 
-      return resolve({
+      resolve({
         stats,
         warnings: messages.warnings,
       });
@@ -80,35 +71,21 @@ function build() {
   });
 }
 
-build()
-  .then(
-    ({ stats, warnings }) => {
-      if (warnings.length) {
-        console.log(chalk.yellow('Compiled with warnings.\n'));
-        console.log(warnings.join('\n\n'));
-        console.log(
-          '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
-        );
-        console.log(
-          'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
-        );
-      } else {
-        console.log(chalk.green('Compiled successfully.\n'));
-      }
-    },
-    err => {
-      console.log(chalk.red('Failed to compile.\n'));
-      printError(err);
-      process.exit(1);
-    }
-  )
-  .catch(err => {
-    if (err && err.message) {
-      console.log(err.message);
-    }
-    process.exit(1);
-  });
+function printInstructions(warnings) {
+  if (warnings.length) {
+    console.log(chalk.yellow('Compiled with warnings.\n'));
+    console.log(warnings.join('\n\n'));
+    console.log(
+      '\nSearch for the ' +
+        chalk.underline(chalk.yellow('keywords')) +
+        ' to learn more about each warning.'
+    );
+    console.log(
+      'To ignore, add ' +
+        chalk.cyan('// eslint-disable-next-line') +
+        ' to the line before.\n'
+    );
+  } else {
+    console.log(chalk.green('Compiled successfully.\n'));
+  }
+}
