@@ -1,6 +1,6 @@
 module.exports = {
   rules: {
-    // Strict Mode
-    strict: [2, 'never'],
-  },
+    // babel inserts `'use strict';` for us
+    strict: ['error', 'never']
+  }
 };
