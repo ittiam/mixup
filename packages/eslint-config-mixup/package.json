@@ -10,5 +10,6 @@
     "eslint": "^6.3.0"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "3e8cda78352ced3526b1517385d39f01340a5454"
 }
