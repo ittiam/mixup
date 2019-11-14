@@ -28,7 +28,6 @@
     "url": "https://github.com/ittiam/mixup/issues"
   },
   "dependencies": {
-    "@mixup/mixup": "^2.1.3",
     "chalk": "^3.0.0",
     "create-mixup-app": "^2.1.3",
     "download-git-repo": "^3.0.2",
