@@ -16,7 +16,11 @@ module.exports = function copyDir(opts) {
   return new Promise(function(resolve, reject) {
     const stopCopySpinner = output.wait('Copying files');
 
-    fs.copy(templatePath, projectPath)
+    fs.copy(templatePath, projectPath, {
+      filter: function(src) {
+        return !src.endsWith('.DS_Store');
+      },
+    })
       .then(function() {
         return fs.move(
           path.resolve(projectPath, './gitignore'),
