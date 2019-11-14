@@ -37,7 +37,9 @@ module.exports = (
   // eslint-disable-next-line global-require, import/no-dynamic-require
   middleware = loadUserOptions(join(process.cwd(), 'mixup.config.js'))
 ) => {
-  const { use, options = {} } = extractMiddlewareAndOptions(middleware);
+  const { use, options = {}, chainWebpack } = extractMiddlewareAndOptions(
+    middleware
+  );
   const rawArgv = process.argv.slice(2);
   const args = require('minimist')(rawArgv, {
     boolean: [
@@ -90,11 +92,15 @@ module.exports = (
 
   if (use) {
     try {
-      if (Array.isArray(use)) {
-        use.forEach(use => mixup.use(use));
-      } else {
-        mixup.use(use);
+      if (!Array.isArray(use)) {
+        use = [use];
       }
+
+      if (chainWebpack) {
+        use.push(chainWebpack);
+      }
+
+      use.forEach(use => mixup.use(use));
     } catch (err) {
       console.error(
         '\nAn error occurred when loading the mixup configuration.\n'

@@ -62,7 +62,7 @@ async function serve(args, mixup, options) {
     protocol,
     host,
     port,
-    isAbsoluteUrl(options.baseUrl) ? '/' : options.baseUrl
+    isAbsoluteUrl(options.publicPath) ? '/' : options.publicPath
   );
 
   const localUrlForBrowser = publicUrl || urls.localUrlForBrowser;
@@ -120,7 +120,7 @@ async function serve(args, mixup, options) {
         historyApiFallback: {
           disableDotRule: true,
           rewrites: genHistoryApiFallbackRewrites(
-            options.baseUrl,
+            options.publicPath,
             options.pages
           ),
         },
@@ -128,7 +128,7 @@ async function serve(args, mixup, options) {
         watchContentBase: true,
         hot: true,
         compress: false,
-        publicPath: options.baseUrl,
+        publicPath: options.publicPath,
         overlay: { warnings: false, errors: true },
       },
       projectDevServerOptions,
@@ -148,10 +148,12 @@ async function serve(args, mixup, options) {
             launchEditorMiddleware(() =>
               console.log(
                 `To specify an editor, specify the EDITOR env variable or ` +
-                  `add "editor" field to your Vue project config.\n`
+                  `add "editor" field to your project config.\n`
               )
             )
           );
+
+          mixup.devServerConfigFns.forEach(fn => fn(app, server));
           // apply in project middlewares
           projectDevServerOptions.before &&
             projectDevServerOptions.before(app, server);
@@ -312,7 +314,7 @@ function printInstructions(urls, useYarn) {
   }
 }
 
-function genHistoryApiFallbackRewrites(baseUrl, pages = {}) {
+function genHistoryApiFallbackRewrites(publicPath, pages = {}) {
   const path = require('path');
   const multiPageRewrites = Object.keys(pages)
     // sort by length in reversed order to avoid overrides
@@ -320,11 +322,11 @@ function genHistoryApiFallbackRewrites(baseUrl, pages = {}) {
     .sort((a, b) => b.length - a.length)
     .map(name => ({
       from: new RegExp(`^/${name}`),
-      to: path.posix.join(baseUrl, pages[name].filename || `${name}.html`),
+      to: path.posix.join(publicPath, pages[name].filename || `${name}.html`),
     }));
 
   return [
     ...multiPageRewrites,
-    { from: /./, to: path.posix.join(baseUrl, 'index.html') },
+    { from: /./, to: path.posix.join(publicPath, 'index.html') },
   ];
 }

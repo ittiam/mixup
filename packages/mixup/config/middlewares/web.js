@@ -86,7 +86,7 @@ module.exports = opts => mixup => {
     .end()
     .output.path(options.output)
     .filename('[name].js')
-    .publicPath(options.baseUrl);
+    .publicPath(options.publicPath);
 
   webpackConfig.resolve.extensions
     .merge([
@@ -229,7 +229,7 @@ module.exports = opts => mixup => {
   if (isDevelopment) {
     webpackConfig
       .devtool('cheap-module-eval-source-map')
-      .output.publicPath(options.baseUrl);
+      .output.publicPath(options.publicPath);
 
     webpackConfig
       .plugin('hmr')
@@ -330,6 +330,19 @@ module.exports = opts => mixup => {
           ignore: publicCopyIgnore,
         },
       ],
+    ]);
+  }
+
+  if (options.manifest) {
+    webpackConfig.plugin('manifest').use(require('webpack-manifest-plugin'), [
+      Object.assign(
+        {
+          filter: file => {
+            return !(file.name.endsWith('.map') || file.name.endsWith('.html'));
+          },
+        },
+        options.manifest
+      ),
     ]);
   }
 };

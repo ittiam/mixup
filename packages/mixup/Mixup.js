@@ -26,6 +26,7 @@ module.exports = class Mixup {
     this.options = this.getOptions(options);
     this.config = new Config();
     this.outputHandlers = new Map();
+    this.devServerConfigFns = [];
   }
 
   getOptions(opts = {}) {
@@ -35,13 +36,15 @@ module.exports = class Mixup {
       // Default to an absolute public path, so pushState API sites work.
       // Apps deployed to a subdirectory will need to override this.
       // https://webpack.js.org/configuration/output/#output-publicpath
-      baseUrl: '/',
+      publicPath: '/',
 
       // where to output built files
       output: '',
 
       // where to put static assets (js/css/img/font/...)
       assetsDir: '',
+
+      manifest: false,
 
       // filename for index.html (relative to outputDir)
       indexPath: 'index.html',
@@ -167,5 +170,15 @@ module.exports = class Mixup {
 
   resolve(_path) {
     return path.resolve(this.context, _path);
+  }
+
+  /**
+   * Register a dev serve config function. It will receive the express `app`
+   * instance of the dev server.
+   *
+   * @param {function} fn
+   */
+  configureDevServer(fn) {
+    this.devServerConfigFns.push(fn);
   }
 };

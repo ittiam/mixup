@@ -9,8 +9,8 @@ module.exports = function getAssetPath(
   // relative paths work properly
   if (
     placeAtRootIfRelative &&
-    !/^https?:/.test(options.baseUrl) &&
-    options.baseUrl.charAt(0) !== '/'
+    !/^https?:/.test(options.publicPath) &&
+    options.publicPath.charAt(0) !== '/'
   ) {
     return filePath.replace(/^\w+\//, '');
   }
