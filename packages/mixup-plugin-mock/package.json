@@ -1,0 +1,30 @@
+{
+  "name": "mixup-plugin-mock",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mixup add mock support.",
+  "author": "ittiam <ittiamc@gmail.com>",
+  "homepage": "https://github.com/ittiam/mixup#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ittiam/mixup.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/ittiam/mixup/issues"
+  },
+  "dependencies": {
+    "mocker-api": "^1.9.0"
+  }
+}
