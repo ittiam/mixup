@@ -345,4 +345,12 @@ module.exports = opts => mixup => {
       ),
     ]);
   }
+
+  // mixup.config
+  //   .plugin('script-ext')
+  //   .use(require('script-ext-html-webpack-plugin'), [
+  //     {
+  //       inline: 'resize.js',
+  //     },
+  //   ]);
 };
