@@ -6,10 +6,10 @@ module.exports = {
     './rules/node',
     './rules/strict',
     './rules/style',
-    './rules/variables'
+    './rules/variables',
   ].map(require.resolve),
   env: {
     browser: true,
-    es6: true
-  }
+    es6: true,
+  },
 };

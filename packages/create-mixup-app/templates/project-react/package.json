@@ -13,6 +13,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "mixup-plugin-react": "^2.0.5",
+    "prettier-eslint": "^9.0.0",
     "prettier-stylelint": "^0.4.2",
     "stylelint-config-mixup": "^2.0.6"
   },

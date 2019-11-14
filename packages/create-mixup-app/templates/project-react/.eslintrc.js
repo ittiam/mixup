@@ -1,3 +1,3 @@
-moeule.exports = {
+module.exports = {
   extends: ['mixup/es6'],
 };

@@ -12,6 +12,7 @@
     "eslint-config-mixup": "^2.0.6",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "prettier-eslint": "^9.0.0",
     "prettier-stylelint": "^0.4.2",
     "stylelint-config-mixup": "^2.0.6"
   },
