@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['mixup/es6'],
+  extends: ['mixup/react'],
 };

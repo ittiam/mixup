@@ -1,15 +1,7 @@
 const { highlight } = require('cli-highlight');
 
 const webpack = mixup => {
-  return mixup.config.toConfig();
-};
-
-const config = mixup => {
-  return mixup.config;
-};
-
-const options = mixup => {
-  return mixup.options;
+  return mixup.resolveWebpackConfig();
 };
 
 const inspect = mixup => {
@@ -22,8 +14,6 @@ const inspect = mixup => {
 };
 
 module.exports = {
-  config,
-  options,
   webpack,
   inspect,
 };
