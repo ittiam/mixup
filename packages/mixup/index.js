@@ -94,7 +94,7 @@ module.exports = (
 
   if (use) {
     try {
-      if (!Array.isArray(use)) {
+      if (Array.isArray(use)) {
         use.forEach(use => mixup.use(use));
       } else {
         mixup.use(use);
