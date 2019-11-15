@@ -1,6 +1,7 @@
 const path = require('path');
 const clone = require('lodash.clonedeep');
 const Config = require('webpack-chain');
+const merge = require('webpack-merge');
 const semver = require('semver');
 const { isAbsolute, join } = require('path');
 const printError = require('mixup-dev-utils/printError');
@@ -20,6 +21,20 @@ const pathOptions = [
 const normalizeMainConfig = config =>
   typeof config === 'string' ? { entry: config } : config;
 
+function cloneRuleNames(to, from) {
+  if (!to || !from) {
+    return;
+  }
+  from.forEach((r, i) => {
+    if (to[i]) {
+      Object.defineProperty(to[i], '__ruleNames', {
+        value: r.__ruleNames,
+      });
+      cloneRuleNames(to[i].oneOf, r.oneOf);
+    }
+  });
+}
+
 module.exports = class Mixup {
   constructor(context, options) {
     this.context = context;
@@ -27,6 +42,7 @@ module.exports = class Mixup {
     this.config = new Config();
     this.outputHandlers = new Map();
     this.devServerConfigFns = [];
+    this.webpackRawConfigFns = [];
   }
 
   getOptions(opts = {}) {
@@ -170,6 +186,58 @@ module.exports = class Mixup {
 
   resolve(_path) {
     return path.resolve(this.context, _path);
+  }
+
+  resolveWebpackConfig() {
+    let config = this.config.toConfig();
+
+    const original = config;
+    // apply raw config fns
+    this.webpackRawConfigFns.forEach(fn => {
+      if (typeof fn === 'function') {
+        // function with optional return value
+        const res = fn(config);
+        if (res) config = merge(config, res);
+      } else if (fn) {
+        // merge literal values
+        config = merge(config, fn);
+      }
+    });
+
+    // #2206 If config is merged by merge-webpack, it discards the __ruleNames
+    // information injected by webpack-chain. Restore the info so that
+    // vue inspect works properly.
+    if (config !== original) {
+      cloneRuleNames(
+        config.module && config.module.rules,
+        original.module && original.module.rules
+      );
+    }
+
+    if (typeof config.entry !== 'function') {
+      let entryFiles;
+      if (typeof config.entry === 'string') {
+        entryFiles = [config.entry];
+      } else if (Array.isArray(config.entry)) {
+        entryFiles = config.entry;
+      } else {
+        entryFiles = Object.values(config.entry || []).reduce(
+          (allEntries, curr) => {
+            return allEntries.concat(curr);
+          },
+          []
+        );
+      }
+
+      entryFiles = entryFiles.map(file => path.resolve(this.context, file));
+      process.env.MIXUP_CLI_ENTRY_FILES = JSON.stringify(entryFiles);
+    }
+
+    return config;
+  }
+
+  configureWebpack(fn) {
+    this.webpackRawConfigFns.push(fn);
   }
 
   /**

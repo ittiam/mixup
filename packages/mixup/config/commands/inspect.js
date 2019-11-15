@@ -2,7 +2,7 @@ module.exports = args => mixup => {
   const chalk = require('chalk');
   const { toString } = require('webpack-chain');
   const { highlight } = require('cli-highlight');
-  const config = mixup.config.toConfig();
+  const config = mixup.resolveWebpackConfig();
   const { verbose } = args;
 
   let res;

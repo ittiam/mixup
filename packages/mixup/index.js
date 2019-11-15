@@ -3,7 +3,7 @@ const fs = require('fs');
 const chalk = require('chalk');
 const logger = require('mixup-dev-utils/logger');
 const Mixup = require('./Mixup');
-const handlers = require('./handlers');
+const { webpack, inspect } = require('./handlers');
 const webMiddleware = require('./config/middlewares/web');
 const cssMiddleware = require('./config/middlewares/css');
 
@@ -37,7 +37,7 @@ module.exports = (
   // eslint-disable-next-line global-require, import/no-dynamic-require
   middleware = loadUserOptions(join(process.cwd(), 'mixup.config.js'))
 ) => {
-  const { use, options = {}, chainWebpack } = extractMiddlewareAndOptions(
+  const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
     middleware
   );
   const rawArgv = process.argv.slice(2);
@@ -82,25 +82,23 @@ module.exports = (
 
   mixup.config.context(context);
 
-  mixup.register('webpack', handlers.webpack);
-  mixup.register('inspect', handlers.inspect);
-  mixup.register('config', handlers.config);
-  mixup.register('options', handlers.options);
+  mixup.register('webpack', webpack);
+  mixup.register('inspect', inspect);
 
   mixup.use(webMiddleware());
   mixup.use(cssMiddleware());
 
+  if (configureWebpack) {
+    mixup.configureWebpack(configureWebpack);
+  }
+
   if (use) {
     try {
       if (!Array.isArray(use)) {
-        use = [use];
+        use.forEach(use => mixup.use(use));
+      } else {
+        mixup.use(use);
       }
-
-      if (chainWebpack) {
-        use.push(chainWebpack);
-      }
-
-      use.forEach(use => mixup.use(use));
     } catch (err) {
       console.error(
         '\nAn error occurred when loading the mixup configuration.\n'

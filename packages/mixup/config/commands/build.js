@@ -16,7 +16,7 @@ function build(args, mixup, options) {
     options.output = args.dest;
   }
 
-  let clientConfig = mixup.config.toConfig();
+  let clientConfig = mixup.resolveWebpackConfig();
 
   if (args.clean || options.clean) {
     fs.removeSync(mixup.resolve(options.output));

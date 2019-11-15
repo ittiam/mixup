@@ -33,7 +33,7 @@ async function serve(args, mixup, options) {
   const isProduction = process.env.NODE_ENV === 'production';
 
   // resolve webpack config
-  const webpackConfig = mixup.config.toConfig();
+  const webpackConfig = mixup.resolveWebpackConfig();
 
   // load user devServer options with higher priority than devServer
   // in webpack config
