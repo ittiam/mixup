@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup-cli",
-  "version": "2.1.5",
+  "version": "2.1.8",
   "description": "Global Cli for MIXUP support.",
   "keywords": [
     "mixup"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "chalk": "^3.0.0",
-    "create-mixup-app": "^2.1.5",
+    "create-mixup-app": "^2.1.8",
     "download-git-repo": "^3.0.2",
     "fs-extra": "^8.1.0",
     "inquirer": "^7.0.0",
