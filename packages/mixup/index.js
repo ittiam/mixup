@@ -53,7 +53,7 @@ module.exports = (
   });
 
   const command = args._[0];
-  const mode =
+  let mode =
     args.mode ||
     process.env.MIXUP_CLI_MODE ||
     (command === 'build' && args.watch ? 'development' : modes[command]);
@@ -65,10 +65,9 @@ module.exports = (
     // Development mode is most appropriate for a !production NODE_ENV (such as `NODE_ENV=test`).
     mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
   } else {
-    // Default NODE_ENV to the more strict value, to save needing to do so in .eslintrc.js.
-    // However don't set `mode` since webpack already defaults it to `production`, and in so
-    // doing outputs a useful message informing users that they are relying on the defaults.
-    process.env.NODE_ENV = 'production';
+    mode = 'development';
+
+    process.env.NODE_ENV = mode;
   }
 
   const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
