@@ -58,6 +58,7 @@ module.exports = (opts = {}) => mixup => {
   const options = merge(
     {
       views: 'views',
+      pages: undefined,
     },
     opts
   );
@@ -121,11 +122,15 @@ module.exports = (opts = {}) => mixup => {
   webpackConfig.entryPoints.clear();
   webpackConfig.plugins.delete('html');
 
-  const multiPageConfig = getViews(VIEWS_DIR, entryGlob);
+  let multiPageConfig = options.pages;
+  if (!multiPageConfig) {
+    multiPageConfig = getViews(VIEWS_DIR, entryGlob);
+  }
+
   mixup.options.pages = multiPageConfig;
 
-  const normalizePageConfig = c => (typeof c === 'string' ? { entry: c } : c);
   const pages = Object.keys(multiPageConfig);
+  const normalizePageConfig = c => (typeof c === 'string' ? { entry: c } : c);
 
   pages.forEach(name => {
     const pageConfig = normalizePageConfig(multiPageConfig[name]);
