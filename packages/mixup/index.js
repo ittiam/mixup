@@ -35,11 +35,8 @@ const modes = {
 module.exports = (
   context,
   // eslint-disable-next-line global-require, import/no-dynamic-require
-  middleware = loadUserOptions(join(process.cwd(), 'mixup.config.js'))
+  middleware
 ) => {
-  const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
-    middleware
-  );
   const rawArgv = process.argv.slice(2);
   const args = require('minimist')(rawArgv, {
     boolean: [
@@ -61,8 +58,6 @@ module.exports = (
     process.env.MIXUP_CLI_MODE ||
     (command === 'build' && args.watch ? 'development' : modes[command]);
 
-  const mixup = new Mixup(context, options);
-
   if (mode) {
     // If specified, --mode takes priority and overrides any existing NODE_ENV.
     process.env.NODE_ENV = mode;
@@ -75,6 +70,12 @@ module.exports = (
     // doing outputs a useful message informing users that they are relying on the defaults.
     process.env.NODE_ENV = 'production';
   }
+
+  const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
+    middleware || loadUserOptions(join(process.cwd(), 'mixup.config.js'))
+  );
+
+  const mixup = new Mixup(context, options);
 
   if (mode) {
     mixup.config.mode(mode);
