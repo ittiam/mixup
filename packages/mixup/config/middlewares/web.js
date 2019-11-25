@@ -68,7 +68,10 @@ module.exports = opts => mixup => {
   // we just use babel-preset-mixup.
   const hasBabelRc = fs.existsSync(mixup.resolve('.babelrc.js'));
   if (!hasBabelRc) {
-    mainBabelOptions.presets.push(require.resolve('./babelPreset'));
+    mainBabelOptions.presets.push([
+      require.resolve('babel-preset-mixup'),
+      options.babel,
+    ]);
   }
 
   // Allow app to override babel options

@@ -5,10 +5,9 @@
 
 ## 特性
 
-- 简化 webpack 的配置，更人性化的配置参数
-- 快速搭建项目且无需重复安装依赖，基于 webpack 4
-- 生成的配置完全兼容 webpack 的命令行工具
-
+- 简化 webpack 的配置
+- 快速搭建项目，基于 webpack 4
+- 开箱即用
 
 ### 使用 mixup 命令行工具
 
@@ -18,4 +17,4 @@ cd my-app
 npm start
 ```
 
-Fork 自 [Razzle](https://github.com/jaredpalmer/razzle/)
+Fork 自 [vue-cli](https://github.com/vuejs/vue-cl/)

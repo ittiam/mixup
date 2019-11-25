@@ -90,6 +90,8 @@ module.exports = class Mixup {
       // remove the dist directory before building the project
       clean: true,
 
+      babel: {},
+
       css: {
         // extract: true,
         // modules: false,

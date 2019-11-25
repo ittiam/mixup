@@ -34,6 +34,11 @@ module.exports = (opts = {}) => mixup => {
                 removeImport: true,
               },
             ],
+            // Adds component stack to warning messages
+            (process.env.NODE_ENV === 'development' ||
+              process.env.NODE_ENV === 'test') && [
+              require.resolve('@babel/plugin-transform-react-jsx-source'),
+            ],
             // Using loose for the reasons here:
             // https://github.com/facebook/create-react-app/issues/4263
             [

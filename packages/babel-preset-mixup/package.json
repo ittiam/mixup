@@ -7,21 +7,24 @@
   "repository": "git@github.com:ittiam/mixup.git",
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "polyfillsPlugin.js"
   ],
   "dependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/core": "^7.6.4",
+    "@babel/helper-module-imports": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
-    "@babel/plugin-transform-react-jsx-source": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.1.5",
-    "babel-plugin-dynamic-import-node": "2.2.0",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.19"
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/runtime": "^7.6.3",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "core-js": "^3.3.2",
+    "core-js-compat": "^3.3.2"
+  },
+  "peerDependencies": {
+    "@babel/core": "*"
   },
   "gitHead": "262f164345828a866a0978d45a5c5f51d1ff1596"
 }
