@@ -16,5 +16,6 @@
   "peerDependencies": {
     "html-webpack-plugin": "^4.0.0-beta.11",
     "webpack": "^4.41.2"
-  }
+  },
+  "gitHead": "07129d1f0d9a3c0ae280abc4aff7c4177cd2ce18"
 }
