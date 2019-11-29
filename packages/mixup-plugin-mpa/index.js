@@ -177,6 +177,8 @@ module.exports = (opts = {}) => mixup => {
       customHtmlOptions
     );
 
-    webpackConfig.plugin(`html-${name}`).use(HTMLPlugin, [pageHtmlOptions]);
+    if (mixup.options.html) {
+      webpackConfig.plugin(`html-${name}`).use(HTMLPlugin, [pageHtmlOptions]);
+    }
   });
 };

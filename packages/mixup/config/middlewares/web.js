@@ -319,7 +319,9 @@ module.exports = opts => mixup => {
     matchBase: false,
   });
 
-  webpackConfig.plugin('html').use(HTMLPlugin, [htmlOptions]);
+  if (options.html) {
+    webpackConfig.plugin('html').use(HTMLPlugin, [htmlOptions]);
+  }
 
   // copy static assets in public/
   const publicDir = mixup.resolve('public');
@@ -338,14 +340,10 @@ module.exports = opts => mixup => {
 
   if (options.manifest) {
     webpackConfig.plugin('manifest').use(require('webpack-manifest-plugin'), [
-      Object.assign(
-        {
-          filter: file => {
-            return !(file.name.endsWith('.map') || file.name.endsWith('.html'));
-          },
-        },
-        options.manifest
-      ),
+      {
+        fileName: 'asset-manifest.json',
+        ...options.manifest,
+      },
     ]);
   }
 

@@ -1,6 +1,8 @@
-const { join } = require('path');
+const { join, resolve } = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
 const logger = require('mixup-dev-utils/logger');
 const Mixup = require('./Mixup');
 const { webpack, inspect } = require('./handlers');
@@ -24,6 +26,26 @@ const loadUserOptions = configPath => {
       throw e;
     }
   }
+};
+
+const loadEnv = (context, mode) => {
+  const basePath = resolve(context, `.env${mode ? `.${mode}` : ``}`);
+  const localPath = `${basePath}.local`;
+
+  const load = envPath => {
+    try {
+      const env = dotenv.config({ path: envPath, debug: process.env.DEBUG });
+      dotenvExpand(env);
+    } catch (err) {
+      // only ignore error if file is not found
+      if (err.toString().indexOf('ENOENT') < 0) {
+        error(err);
+      }
+    }
+  };
+
+  load(localPath);
+  load(basePath);
 };
 
 const modes = {
@@ -57,6 +79,11 @@ module.exports = (
     args.mode ||
     process.env.MIXUP_CLI_MODE ||
     (command === 'build' && args.watch ? 'development' : modes[command]);
+
+  if (mode) {
+    loadEnv(context, mode);
+  }
+  loadEnv(context);
 
   if (mode) {
     // If specified, --mode takes priority and overrides any existing NODE_ENV.
