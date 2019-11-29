@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-mixup",
-  "version": "2.1.12",
+  "version": "2.1.13",
   "description": "Babel presets for Mixup",
   "main": "index.js",
   "author": "chonger42 <ittiamc@gmail.com>",
