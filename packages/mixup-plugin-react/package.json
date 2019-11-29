@@ -1,6 +1,6 @@
 {
   "name": "mixup-plugin-react",
-  "version": "2.1.11",
+  "version": "2.1.12",
   "description": "Mixup add React Support.",
   "main": "index.js",
   "scripts": {
