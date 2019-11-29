@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup",
-  "version": "2.1.12",
+  "version": "2.1.13",
   "description": "A modular build tool based on webpack.",
   "repository": "git@github.com:ittiam/mixup.git",
   "author": "chonger42 <ittiamc@gmail.com>",
@@ -76,5 +76,5 @@
     "webpack-node-externals": "^1.7.2",
     "webpackbar": "^3.1.5"
   },
-  "gitHead": "07129d1f0d9a3c0ae280abc4aff7c4177cd2ce18"
+  "gitHead": "e5e7e01229a079ff9965d55080a88d4f1432602e"
 }
