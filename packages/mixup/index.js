@@ -98,7 +98,8 @@ module.exports = (
   }
 
   const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
-    middleware || loadUserOptions(join(process.cwd(), 'mixup.config.js'))
+    middleware ||
+      loadUserOptions(join(context || process.cwd(), 'mixup.config.js'))
   );
 
   const mixup = new Mixup(context, options);
