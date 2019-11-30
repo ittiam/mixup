@@ -82,7 +82,7 @@ module.exports = () => mixup => {
   // because otherwise it would throw error when attempting to load postcss config
   const hasPostCSSConfig = !!(
     loaderOptions.postcss ||
-    mixup.options.packageJson.postcss ||
+    (mixup.options.packageJson && mixup.options.packageJson.postcss) ||
     findExisting(mixup.resolve('.'), [
       '.postcssrc',
       '.postcssrc.js',

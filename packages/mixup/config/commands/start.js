@@ -3,8 +3,6 @@ const chalk = require('chalk');
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-const isInteractive = process.stdout.isTTY;
-
 module.exports = args => mixup => {
   const { options } = mixup;
 
@@ -31,6 +29,9 @@ async function serve(args, mixup, options) {
   const yarnLockFile = path.resolve(process.cwd(), 'yarn.lock');
   const useYarn = fs.existsSync(yarnLockFile);
   const isProduction = process.env.NODE_ENV === 'production';
+
+  const isInteractive =
+    process.stdout.isTTY && !process.env.MIXUP_CLI_INTERACTIVE;
 
   // resolve webpack config
   const webpackConfig = mixup.resolveWebpackConfig();
@@ -72,40 +73,37 @@ async function serve(args, mixup, options) {
     mixup.resolve('public')
   );
 
-  const sockjsUrl = publicUrl
-    ? // explicitly configured via devServer.public
-      `?${publicUrl}/sockjs-node`
-    : `?` +
-      url.format({
-        protocol,
-        port,
-        hostname: urls.lanUrlForConfig || 'localhost',
-        pathname: '/sockjs-node',
-      });
-  const devClients = [
-    // dev server client
-    require.resolve(`webpack-dev-server/client`) + sockjsUrl,
-    // hmr client
-    require.resolve(
-      projectDevServerOptions.hotOnly
-        ? 'webpack/hot/only-dev-server'
-        : 'webpack/hot/dev-server'
-    ),
-    // TODO custom overlay client
-    // `@vue/cli-overlay/dist/client`
-  ];
+  if (!isProduction) {
+    const sockjsUrl = publicUrl
+      ? // explicitly configured via devServer.public
+        `?${publicUrl}/sockjs-node`
+      : `?` +
+        url.format({
+          protocol,
+          port,
+          hostname: urls.lanUrlForConfig || 'localhost',
+          pathname: '/sockjs-node',
+        });
 
-  if (process.env.APPVEYOR) {
-    devClients.push(`webpack/hot/poll?500`);
+    // const devClients = [
+    //   // dev server client
+    //   require.resolve(`webpack-dev-server/client`) + sockjsUrl,
+    //   // hmr client
+    //   require.resolve(
+    //     projectDevServerOptions.hotOnly
+    //       ? 'webpack/hot/only-dev-server'
+    //       : 'webpack/hot/dev-server'
+    //   ),
+    // ];
+    const devClients = [require.resolve('mixup-dev-utils/webpackHotDevClient')];
+
+    if (process.env.APPVEYOR) {
+      devClients.push(`webpack/hot/poll?500`);
+    }
+
+    // inject dev/hot client
+    addDevClientToEntry(webpackConfig, devClients);
   }
-
-  // const stringifiedConfig = mixup.config.toString({
-  //   configPrefix: 'mixup.config',
-  //   verbose: true,
-  // });
-  // console.log(stringifiedConfig);
-  // inject dev/hot client
-  addDevClientToEntry(webpackConfig, devClients);
 
   // Compile our assets with webpack
   const clientCompiler = webpack(webpackConfig);
@@ -116,7 +114,12 @@ async function serve(args, mixup, options) {
     Object.assign(
       {
         logLevel: 'silent',
-        clientLogLevel: 'silent',
+        // clientLogLevel: 'silent',
+        // overlay: { warnings: false, errors: true },
+        clientLogLevel: 'none',
+        overlay: false,
+        transportMode: 'ws',
+        quiet: true,
         historyApiFallback: {
           disableDotRule: true,
           rewrites: genHistoryApiFallbackRewrites(
@@ -128,8 +131,8 @@ async function serve(args, mixup, options) {
         watchContentBase: true,
         hot: true,
         compress: false,
+        injectClient: false,
         publicPath: options.publicPath,
-        overlay: { warnings: false, errors: true },
       },
       projectDevServerOptions,
       {
@@ -142,7 +145,6 @@ async function serve(args, mixup, options) {
           // This lets us open files from the runtime error overlay.
           app.use(errorOverlayMiddleware());
           // launch editor support.
-          // this works with vue-devtools & @vue/cli-overlay
           app.use(
             '/__open-in-editor',
             launchEditorMiddleware(() =>
@@ -210,7 +212,7 @@ async function serve(args, mixup, options) {
         console.log(chalk.green('Compiled successfully!'));
       }
 
-      if (isSuccessful && (isInteractive || isFirstCompile)) {
+      if (isSuccessful && isInteractive && isFirstCompile) {
         printInstructions(urls, useYarn);
       }
 

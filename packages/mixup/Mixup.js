@@ -16,6 +16,7 @@ const pathOptions = [
   ['output', 'dist', getRoot],
   ['tests', 'test', getRoot],
 ];
+
 // Support both a shorter string form and an object form that allows
 // specifying any page-specific options supported by the preset.
 const normalizeMainConfig = config =>

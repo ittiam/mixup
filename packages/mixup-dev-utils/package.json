@@ -12,6 +12,7 @@
     "makeLoaderFinder.js",
     "prettyNodeErrors.js",
     "printError.js",
+    "webpackHotDevClient.js",
     "resolveClientEnv.js",
     "spinner.js"
   ],
@@ -20,9 +21,11 @@
     "chalk": "2.4.1",
     "jest-message-util": "^24.0.0",
     "ora": "^1.4.0",
-    "react-dev-utils": "^6.1.1",
+    "react-dev-utils": "^9.1.0",
+    "react-error-overlay": "^6.0.3",
     "sockjs-client": "1.3.0",
-    "strip-ansi": "5.0.0"
+    "strip-ansi": "^5.0.0",
+    "url": "^0.11.0"
   },
   "gitHead": "262f164345828a866a0978d45a5c5f51d1ff1596"
 }

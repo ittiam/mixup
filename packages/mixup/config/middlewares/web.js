@@ -238,6 +238,10 @@ module.exports = opts => mixup => {
       .plugin('hmr')
       .use(require('webpack/lib/HotModuleReplacementPlugin'));
 
+    webpackConfig.output.globalObject(
+      `(typeof self !== 'undefined' ? self : this)`
+    );
+
     webpackConfig
       .plugin('no-emit-on-errors')
       .use(require('webpack/lib/NoEmitOnErrorsPlugin'));
@@ -346,12 +350,4 @@ module.exports = opts => mixup => {
       },
     ]);
   }
-
-  // mixup.config
-  //   .plugin('script-ext')
-  //   .use(require('script-ext-html-webpack-plugin'), [
-  //     {
-  //       inline: 'resize.js',
-  //     },
-  //   ]);
 };
