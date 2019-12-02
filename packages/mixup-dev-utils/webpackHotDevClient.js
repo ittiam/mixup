@@ -46,7 +46,7 @@ ErrorOverlay.startReportingRuntimeErrors({
   onError: function() {
     hadRuntimeError = true;
   },
-  filename: '/app.js',
+  filename: '/chunk-vendors.js',
 });
 
 if (module.hot && typeof module.hot.dispose === 'function') {
