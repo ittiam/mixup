@@ -231,7 +231,7 @@ module.exports = opts => mixup => {
 
   if (isDevelopment) {
     webpackConfig
-      .devtool('cheap-module-eval-source-map')
+      .devtool('cheap-module-source-map')
       .output.publicPath(options.publicPath);
 
     webpackConfig
