@@ -8,7 +8,7 @@
     "test": "mixup test --env=jsdom"
   },
   "devDependencies": {
-    "@mixup/mixup": "^2.1.0",
+    "@mixup/mixup": "^2.2.0",
     "eslint-config-mixup": "^2.1.0",
     "eslint-plugin-vue": "^6.0.1",
     "less": "^3.10.3",
