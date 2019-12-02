@@ -18,6 +18,7 @@
     "extensions.js",
     "handlers.js",
     "index.js",
+    "service.js",
     "Mixup.js",
     "babel.js"
   ],
