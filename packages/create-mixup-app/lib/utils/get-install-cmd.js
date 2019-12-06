@@ -11,7 +11,7 @@ module.exports = function getInstallCmd() {
 
   try {
     execa.sync('yarnpkg', ['--version']);
-    cmd = 'yarn';
+    cmd = 'yarnpkg';
   } catch (e) {
     cmd = 'npm';
   }

@@ -19,11 +19,12 @@ module.exports = function install(opts) {
   const installCmd = getInstallCmd();
   const installArgs = getInstallArgs(installCmd, packages);
 
-  console.log(messages.installing(packages));
   process.chdir(projectPath);
 
   return new Promise(function(resolve, reject) {
-    const stopInstallSpinner = output.wait('Installing modules');
+    const stopInstallSpinner = output.wait(
+      'Installing packages. This might take a couple of minutes.'
+    );
 
     execa(installCmd, installArgs)
       .then(function() {
@@ -45,10 +46,10 @@ module.exports = function install(opts) {
 
 function getInstallArgs(cmd, packages) {
   if (cmd === 'npm') {
-    const args = ['install', '--save', '--save-exact'];
+    const args = ['install', '--save', '--save-exact', '--loglevel', 'error'];
     return args.concat(packages, ['--verbose']);
-  } else if (cmd === 'yarn') {
-    const args = ['add'];
+  } else if (cmd === 'yarnpkg') {
+    const args = ['add', '--exact'];
     return args.concat(packages);
   }
 }

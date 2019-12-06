@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
+const { join, isAbsolute } = require('path');
 
 const script = process.argv[2];
-
 const rawArgv = process.argv.slice(2);
 const args = require('minimist')(rawArgv, {
   boolean: [
@@ -18,8 +18,17 @@ const args = require('minimist')(rawArgv, {
   ],
 });
 
+function toAbsolute(p) {
+  if (isAbsolute(p)) {
+    return p;
+  }
+  return join(process.cwd(), p);
+}
+
+const { MIXUP_CLI_CONTEXT } = process.env;
+
 const service = require('../service')(
-  process.env.MIXUP_CLI_CONTEXT || process.cwd()
+  MIXUP_CLI_CONTEXT ? toAbsolute(MIXUP_CLI_CONTEXT) : process.cwd()
 );
 
 switch (script) {
