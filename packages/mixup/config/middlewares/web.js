@@ -8,7 +8,6 @@ module.exports = opts => mixup => {
   const getAssetPath = require('../../util/getAssetPath');
   const resolveClientEnv = require('../../util/resolveClientEnv');
   const HTMLPlugin = require('html-webpack-plugin');
-  const inlineLimit = 4096;
   const { options, config } = mixup;
   const webpackConfig = config;
 
@@ -16,6 +15,7 @@ module.exports = opts => mixup => {
   const defaultHtmlPath = path.resolve(__dirname, 'index-default.html');
   const publicCopyIgnore = ['.DS_Store'];
   const outputDir = mixup.resolve(options.output);
+  const inlineLimit = options.inlineLimit || 4096;
 
   const genAssetSubPath = dir => {
     return getAssetPath(

@@ -58,6 +58,8 @@ module.exports = class Mixup {
       // where to output built files
       output: '',
 
+      inlineLimit: 4096,
+
       // where to put static assets (js/css/img/font/...)
       assetsDir: '',
 
