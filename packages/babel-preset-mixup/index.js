@@ -15,12 +15,6 @@ const defaultPolyfills = [
   'es.promise.finally',
 ];
 
-let hotDevClientPolyfills = [];
-
-if (process.env.NODE_ENV === 'development') {
-  hotDevClientPolyfills = ['es.array.slice', 'es.object.to-string'];
-}
-
 function getPolyfills(
   targets,
   includes,
@@ -79,16 +73,10 @@ module.exports = (context, options = {}) => {
   // be force-included.
   let polyfills;
   if (useBuiltIns === 'usage') {
-    const babelPolyfills = userPolyfills || defaultPolyfills;
-
-    polyfills = getPolyfills(
-      targets,
-      [...hotDevClientPolyfills, ...babelPolyfills],
-      {
-        ignoreBrowserslistConfig,
-        configPath,
-      }
-    );
+    polyfills = getPolyfills(targets, userPolyfills || defaultPolyfills, {
+      ignoreBrowserslistConfig,
+      configPath,
+    });
     plugins.push([
       require('./polyfillsPlugin'),
       { polyfills, entryFiles, useAbsolutePath: !!absoluteRuntime },
