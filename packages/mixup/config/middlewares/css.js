@@ -15,8 +15,17 @@ const findExisting = (context, files) => {
 module.exports = () => mixup => {
   const { options } = mixup;
   const webpackConfig = mixup.config;
+  const is = require('../../util/is');
   const getAssetPath = require('../../util/getAssetPath');
   const isProd = process.env.NODE_ENV === 'production';
+
+  const isAssetFilenameHashing = dir => {
+    return is.Boolean(options.filenameHashing)
+      ? options.filenameHashing
+      : is.Object(options.filenameHashing)
+      ? options.filenameHashing[dir]
+      : true;
+  };
 
   let sassLoaderVersion;
   try {
@@ -57,7 +66,7 @@ module.exports = () => mixup => {
   const shouldExtract = extract !== false;
   const filename = getAssetPath(
     options,
-    `css/[name]${options.filenameHashing ? '.[contenthash:8]' : ''}.css`
+    `css/[name]${isAssetFilenameHashing('css') ? '.[contenthash:8]' : ''}.css`
   );
   const extractOptions = Object.assign(
     {

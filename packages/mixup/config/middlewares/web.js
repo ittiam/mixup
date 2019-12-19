@@ -4,6 +4,7 @@ const fs = require('fs');
 module.exports = opts => mixup => {
   const isProduction = process.env.NODE_ENV === 'production';
   const isDevelopment = process.env.NODE_ENV === 'development';
+  const is = require('../../util/is');
   const resolveLocal = require('../../util/resolveLocal');
   const getAssetPath = require('../../util/getAssetPath');
   const resolveClientEnv = require('../../util/resolveClientEnv');
@@ -17,10 +18,18 @@ module.exports = opts => mixup => {
   const outputDir = mixup.resolve(options.output);
   const inlineLimit = options.inlineLimit || 4096;
 
+  const isAssetFilenameHashing = dir => {
+    return is.Boolean(options.filenameHashing)
+      ? options.filenameHashing
+      : is.Object(options.filenameHashing)
+      ? options.filenameHashing[dir]
+      : true;
+  };
+
   const genAssetSubPath = dir => {
     return getAssetPath(
       options,
-      `${dir}/[name]${options.filenameHashing ? '.[hash:8]' : ''}.[ext]`
+      `${dir}/[name]${isAssetFilenameHashing(dir) ? '.[hash:8]' : ''}.[ext]`
     );
   };
 
@@ -260,7 +269,7 @@ module.exports = opts => mixup => {
 
     const outputFilename = getAssetPath(
       options,
-      `js/[name]${options.filenameHashing ? '.[contenthash:8]' : ''}.js`
+      `js/[name]${isAssetFilenameHashing('js') ? '.[contenthash:8]' : ''}.js`
     );
     webpackConfig.output.filename(outputFilename).chunkFilename(outputFilename);
 
