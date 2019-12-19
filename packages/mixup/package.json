@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "A modular build tool based on webpack.",
   "repository": "git@github.com:ittiam/mixup.git",
   "author": "chonger42 <ittiamc@gmail.com>",
@@ -36,7 +36,7 @@
     "assets-webpack-plugin": "^3.9.7",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "babel-preset-mixup": "^2.1.14",
+    "babel-preset-mixup": "^2.2.5",
     "cache-loader": "^4.1.0",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "chalk": "^2.4.1",
