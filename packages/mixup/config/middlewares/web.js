@@ -18,6 +18,8 @@ module.exports = opts => mixup => {
   const outputDir = mixup.resolve(options.output);
   const inlineLimit = options.inlineLimit || 4096;
 
+  const isWindows = process.platform === 'win32';
+
   const isAssetFilenameHashing = dir => {
     return is.Boolean(options.filenameHashing)
       ? options.filenameHashing
