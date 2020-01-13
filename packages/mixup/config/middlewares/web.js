@@ -46,6 +46,20 @@ module.exports = opts => mixup => {
     };
   };
 
+  function genTranspileDepRegex(transpileDependencies) {
+    const deps = transpileDependencies.map(dep => {
+      if (typeof dep === 'string') {
+        const depPath = path.join('node_modules', dep, '/');
+        return isWindows
+          ? depPath.replace(/\\/g, '\\\\') // double escape for windows style path
+          : depPath;
+      } else if (dep instanceof RegExp) {
+        return dep.source;
+      }
+    });
+    return deps.length ? new RegExp(deps.join('|')) : null;
+  }
+
   const htmlOptions = {
     templateParameters: (compilation, assets, pluginOptions) => {
       // enhance html-webpack-plugin's built in template params
@@ -118,12 +132,19 @@ module.exports = opts => mixup => {
     .add(mixup.resolve('node_modules'))
     .add(resolveLocal('node_modules'));
 
+  const transpileDepRegex = genTranspileDepRegex(options.transpile);
+
   webpackConfig.module
     .rule('babel')
     .test(/\.(js|jsx|mjs)$/)
     .exclude.add(filepath => {
       // always transpile js in vue files
       if (/\.vue\.jsx?$/.test(filepath)) {
+        return false;
+      }
+
+      // check if this is something the user explicitly wants to transpile
+      if (transpileDepRegex && transpileDepRegex.test(filepath)) {
         return false;
       }
 
