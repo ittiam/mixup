@@ -77,6 +77,9 @@ module.exports = class Mixup {
       // boolean, use full build?
       runtimeCompiler: false,
 
+      // deps to transpile
+      transpile: [],
+
       // sourceMap for production build?
       productionSourceMap: true,
 
