@@ -97,12 +97,16 @@ module.exports = (opts = {}) => mixup => {
         mixup.regexFromExtensions(
           mixup.options.extensions.filter(ext => ext !== 'vue')
         )
-      )
+      );
+
+    mixup.config.module
+      .rule('babel')
+      .use('babel-loader')
       .tap(babelOptions =>
         babelMerge(babelOptions, {
           presets: [
             [
-              require('@vue/babel-preset-jsx'),
+              '@vue/babel-preset-jsx',
               typeof options.jsx === 'object' ? options.jsx : {},
             ],
           ],
