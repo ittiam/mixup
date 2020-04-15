@@ -41,6 +41,14 @@ module.exports = (context, options = {}) => {
     process.env.MIXUP_CLI_ENTRY_FILES || '[]'
   );
 
+  // JSX
+  if (options.jsx !== false) {
+    presets.push([
+      require('@vue/babel-preset-jsx'),
+      typeof options.jsx === 'object' ? options.jsx : {},
+    ]);
+  }
+
   const runtimePath = path.dirname(
     require.resolve('@babel/runtime/package.json')
   );
