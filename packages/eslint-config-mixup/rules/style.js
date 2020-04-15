@@ -109,7 +109,7 @@ module.exports = {
 
     // require function expressions to have a name
     // https://eslint.org/docs/rules/func-names
-    'func-names': ['error', 'never'],
+    'func-names': 'off',
 
     // enforces use of function declarations or expressions
     // https://eslint.org/docs/rules/func-style
@@ -340,7 +340,7 @@ module.exports = {
 
     // disallow use of the continue statement
     // https://eslint.org/docs/rules/no-continue
-    'no-continue': 'error',
+    'no-continue': 'off',
 
     // disallow comments inline after code
     'no-inline-comments': 'off',
