@@ -180,6 +180,7 @@ module.exports = {
     'no-param-reassign': ['error', {
       props: true,
       ignorePropertyModificationsFor: [
+        'this', // for vue data
         'acc', // for reduce accumulators
         'accumulator', // for reduce accumulators
         'e', // for e.returnvalue
