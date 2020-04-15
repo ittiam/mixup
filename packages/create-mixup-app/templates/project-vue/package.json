@@ -5,11 +5,12 @@
   "scripts": {
     "start": "mixup start",
     "build": "mixup build",
-    "test": "mixup test --env=jsdom"
+    "test": "mixup test --env=jsdom",
+    "lintcss:fix": "stylelint src/**/*.{html,vue} --custom-syntax postcss-html --fix"
   },
   "devDependencies": {
     "@mixup/mixup": "^2.2.0",
-    "eslint-config-mixup": "^2.1.0",
+    "eslint-config-mixup": "^2.2.10",
     "eslint-plugin-vue": "^6.0.1",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
