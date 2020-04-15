@@ -1,6 +1,6 @@
 {
   "name": "create-mixup-app",
-  "version": "2.2.16",
+  "version": "2.2.17",
   "description": "CLI tool to bootstrap Mixup applications with no configuration",
   "main": "index.js",
   "license": "MIT",

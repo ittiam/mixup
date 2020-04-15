@@ -1,6 +1,6 @@
 {
   "name": "stylelint-config-mixup",
-  "version": "2.1.3",
+  "version": "2.2.17",
   "description": "Stylelint sharable config for mixup",
   "main": "index.js",
   "scripts": {
