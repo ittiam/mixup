@@ -1,4 +1,5 @@
 const merge = require('deepmerge');
+const babelMerge = require('babel-merge');
 
 const applyUse = from => to => {
   from.uses.values().forEach(use => {
@@ -96,6 +97,16 @@ module.exports = (opts = {}) => mixup => {
         mixup.regexFromExtensions(
           mixup.options.extensions.filter(ext => ext !== 'vue')
         )
+      )
+      .tap(babelOptions =>
+        babelMerge(babelOptions, {
+          presets: [
+            [
+              require('@vue/babel-preset-jsx'),
+              typeof options.jsx === 'object' ? options.jsx : {},
+            ],
+          ],
+        })
       );
   }
 
