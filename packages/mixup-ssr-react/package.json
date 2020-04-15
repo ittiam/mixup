@@ -1,0 +1,24 @@
+{
+  "name": "@mixup/ssr-react",
+  "version": "1.0.0",
+  "description": "React SSR as a view template engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ittiam/mixup.git"
+  },
+  "keywords": [
+    "react",
+    "server-side-rendering",
+    "ssr"
+  ],
+  "author": "chonger42 <ittiamc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ittiam/mixup/issues"
+  },
+  "homepage": "https://github.com/ittiam/mixup#readme"
+}
