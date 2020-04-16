@@ -1,6 +1,6 @@
 {
   "name": "mixup-plugin-vue",
-  "version": "2.2.18",
+  "version": "2.2.19",
   "description": "Mixup add vue.js Support.",
   "main": "index.js",
   "scripts": {
