@@ -14,12 +14,14 @@
     "printError.js",
     "webpackHotDevClient.js",
     "resolveClientEnv.js",
-    "spinner.js"
+    "spinner.js",
+    "ipc.js"
   ],
   "dependencies": {
     "@babel/code-frame": "^7.0.0",
     "chalk": "2.4.1",
     "jest-message-util": "^24.0.0",
+    "node-ipc": "^9.1.1",
     "ora": "^1.4.0",
     "react-dev-utils": "^9.1.0",
     "react-error-overlay": "^6.0.3",
@@ -27,5 +29,5 @@
     "strip-ansi": "^5.0.0",
     "url": "^0.11.0"
   },
-  "gitHead": "262f164345828a866a0978d45a5c5f51d1ff1596"
+  "gitHead": "586333c2ed1af8107865de434caf4b8435080439"
 }

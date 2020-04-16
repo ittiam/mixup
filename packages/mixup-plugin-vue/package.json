@@ -20,5 +20,6 @@
   },
   "peerDependencies": {
     "webpack": "^4.41.2"
-  }
+  },
+  "gitHead": "586333c2ed1af8107865de434caf4b8435080439"
 }

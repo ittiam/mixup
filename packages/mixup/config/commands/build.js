@@ -1,5 +1,13 @@
 const chalk = require('chalk');
 
+const modifyConfig = (config, fn) => {
+  if (Array.isArray(config)) {
+    config.forEach(c => fn(c));
+  } else {
+    fn(config);
+  }
+};
+
 module.exports = args => mixup => {
   const { options } = mixup;
 
@@ -17,6 +25,40 @@ function build(args, mixup, options) {
   }
 
   let clientConfig = mixup.resolveWebpackConfig();
+
+  // Expose advanced stats
+  if (args.dashboard) {
+    const DashboardPlugin = require('../webpack/DashboardPlugin');
+    modifyConfig(clientConfig, config => {
+      config.plugins.push(
+        new DashboardPlugin({
+          type: 'build',
+          modernBuild: args.modernBuild,
+          keepAlive: args.keepAlive,
+        })
+      );
+    });
+  }
+
+  if (args.report || args['report-json']) {
+    const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+    modifyConfig(clientConfig, config => {
+      const bundleName =
+        args.target !== 'app'
+          ? config.output.filename.replace(/\.js$/, '-')
+          : '';
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          logLevel: 'warn',
+          openAnalyzer: false,
+          analyzerMode: args.report ? 'static' : 'disabled',
+          reportFilename: `${bundleName}report.html`,
+          statsFilename: `${bundleName}report.json`,
+          generateStatsFile: !!args['report-json'],
+        })
+      );
+    });
+  }
 
   if (args.clean || options.clean) {
     fs.removeSync(mixup.resolve(options.output));

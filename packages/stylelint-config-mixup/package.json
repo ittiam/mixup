@@ -17,5 +17,6 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.1.0",
     "stylelint-order": "^3.1.0"
-  }
+  },
+  "gitHead": "586333c2ed1af8107865de434caf4b8435080439"
 }

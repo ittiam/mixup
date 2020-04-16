@@ -8,6 +8,8 @@ const args = require('minimist')(rawArgv, {
   boolean: [
     // build
     'watch',
+    'report',
+    'report-json',
     // serve
     'open',
     'https',
