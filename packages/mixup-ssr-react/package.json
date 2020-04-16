@@ -1,6 +1,6 @@
 {
   "name": "@mixup/ssr-react",
-  "version": "2.2.19",
+  "version": "2.2.20",
   "description": "React SSR as a view template engine",
   "main": "index.js",
   "scripts": {
