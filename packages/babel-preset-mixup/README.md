@@ -1,6 +1,6 @@
 # babel-preset-mixup
 
-This package includes the [Babel](https://babeljs.io) preset used by [Razzle](https://github/com/palmerhq/razzle)
+This package includes the [Babel](https://babeljs.io) preset used by [Mixup](https://github/com/ittiam/mixup)
 
 ## Usage in Mixup Projects
 
@@ -14,10 +14,10 @@ First, [install Babel](https://babeljs.io/docs/setup/).
 
 Then create a file named `.babelrc` with following contents in the root folder of your project:
 
-  ```js
-  {
-    "presets": ["mixup"]
-  }
-  ```
+```js
+{
+  "presets": ["mixup"]
+}
+```
 
 This preset uses the `useBuiltIns` option with [transform-object-rest-spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/), which assumes that `Object.assign` is available or polyfilled.
