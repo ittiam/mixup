@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    node: true
+    node: true,
   },
 
   rules: {
@@ -9,7 +9,7 @@ module.exports = {
 
     // require all requires be top-level
     // https://eslint.org/docs/rules/global-require
-    'global-require': 'error',
+    'global-require': 'off',
 
     // enforces error handling in callbacks (node environment)
     'handle-callback-err': 'off',
@@ -39,5 +39,5 @@ module.exports = {
 
     // disallow use of synchronous methods (off by default)
     'no-sync': 'off',
-  }
+  },
 };
