@@ -59,13 +59,17 @@ module.exports = {
 
     // disallow unnecessary parentheses
     // https://eslint.org/docs/rules/no-extra-parens
-    'no-extra-parens': ['off', 'all', {
-      conditionalAssign: true,
-      nestedBinaryExpressions: false,
-      returnAssign: false,
-      ignoreJSX: 'all', // delegate to eslint-plugin-react
-      enforceForArrowConditionals: false,
-    }],
+    'no-extra-parens': [
+      'off',
+      'all',
+      {
+        conditionalAssign: true,
+        nestedBinaryExpressions: false,
+        returnAssign: false,
+        ignoreJSX: 'all', // delegate to eslint-plugin-react
+        enforceForArrowConditionals: false,
+      },
+    ],
 
     // disallow unnecessary semicolons
     'no-extra-semi': 'error',
@@ -95,7 +99,7 @@ module.exports = {
 
     // disallow use of Object.prototypes builtins directly
     // https://eslint.org/docs/rules/no-prototype-builtins
-    'no-prototype-builtins': 'error',
+    'no-prototype-builtins': 'off',
 
     // disallow multiple spaces in a regular expression literal
     'no-regex-spaces': 'error',
@@ -140,5 +144,5 @@ module.exports = {
     // ensure that the results of typeof are compared against a valid string
     // https://eslint.org/docs/rules/valid-typeof
     'valid-typeof': ['error', { requireStringLiterals: true }],
-  }
+  },
 };
