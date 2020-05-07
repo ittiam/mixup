@@ -44,6 +44,7 @@ module.exports = class Mixup {
     this.outputHandlers = new Map();
     this.devServerConfigFns = [];
     this.webpackRawConfigFns = [];
+    this.webpackChainFns = [];
   }
 
   getOptions(opts = {}) {
@@ -196,8 +197,16 @@ module.exports = class Mixup {
     return path.resolve(this.context, _path);
   }
 
+  resolveChainableWebpackConfig() {
+    const chainableConfig = this.config;
+    // apply chains
+    this.webpackChainFns.forEach(fn => fn(chainableConfig));
+    return chainableConfig;
+  }
+
   resolveWebpackConfig() {
-    let config = this.config.toConfig();
+    let chainableConfig = this.resolveChainableWebpackConfig();
+    let config = chainableConfig.toConfig();
 
     const original = config;
     // apply raw config fns
@@ -242,6 +251,10 @@ module.exports = class Mixup {
     }
 
     return config;
+  }
+
+  chainWebpack(fn) {
+    this.webpackChainFns.push(fn);
   }
 
   configureWebpack(fn) {

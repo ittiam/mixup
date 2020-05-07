@@ -146,7 +146,7 @@ async function serve(args, mixup, options) {
           app.use(errorOverlayMiddleware());
           // launch editor support.
           app.use(
-            '/__open-in-editor',
+            '/__open-stack-frame-in-editor',
             launchEditorMiddleware(() =>
               console.log(
                 `To specify an editor, specify the EDITOR env variable or ` +

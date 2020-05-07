@@ -36,6 +36,7 @@ const service = require('../service')(
 switch (script) {
   case 'build':
   case 'start':
+  case 'dll':
   case 'inspect': {
     service.run(script, args);
     break;

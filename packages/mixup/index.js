@@ -66,9 +66,12 @@ module.exports = (
 
   middleware = middleware || loadUserOptions(join(context, 'mixup.config.js'));
 
-  const { use, options = {}, configureWebpack } = extractMiddlewareAndOptions(
-    middleware
-  );
+  const {
+    use,
+    options = {},
+    configureWebpack,
+    chainWebpack,
+  } = extractMiddlewareAndOptions(middleware);
 
   const mixup = new Mixup(context, options);
 
@@ -86,10 +89,6 @@ module.exports = (
   mixup.use(webMiddleware());
   mixup.use(cssMiddleware());
 
-  if (configureWebpack) {
-    mixup.configureWebpack(configureWebpack);
-  }
-
   if (use) {
     try {
       if (Array.isArray(use)) {
@@ -104,6 +103,13 @@ module.exports = (
       console.error(err);
       process.exit(1);
     }
+  }
+
+  if (chainWebpack) {
+    mixup.chainWebpack(chainWebpack);
+  }
+  if (configureWebpack) {
+    mixup.configureWebpack(configureWebpack);
   }
 
   return mixup;
