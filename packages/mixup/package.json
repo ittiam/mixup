@@ -70,7 +70,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.0.6",
     "postcss-safe-parser": "^4.0.1",
-    "react-dev-utils": "^9.1.0",
+    "react-dev-utils": "^10.1.0",
     "react-error-overlay": "^6.0.7",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "source-map-support": "^0.5.9",
