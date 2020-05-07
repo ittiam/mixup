@@ -46,7 +46,7 @@ ErrorOverlay.startReportingRuntimeErrors({
   onError: function() {
     hadRuntimeError = true;
   },
-  filename: '/chunk-common.js',
+  filename: '/app.js',
 });
 
 if (module.hot && typeof module.hot.dispose === 'function') {
