@@ -8,6 +8,7 @@ const Mixup = require('./Mixup');
 const { webpack, inspect } = require('./handlers');
 const webMiddleware = require('./config/middlewares/web');
 const cssMiddleware = require('./config/middlewares/css');
+const dllMiddleware = require('./config/middlewares/dll');
 
 const extractMiddlewareAndOptions = format =>
   typeof format === 'function' ? { use: [format] } : { ...format };
@@ -88,6 +89,7 @@ module.exports = (
 
   mixup.use(webMiddleware());
   mixup.use(cssMiddleware());
+  mixup.use(dllMiddleware());
 
   if (use) {
     try {

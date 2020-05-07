@@ -21,7 +21,7 @@ async function serve(args, mixup, options) {
   const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
   const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
   const openBrowser = require('react-dev-utils/openBrowser');
-  const launchEditorMiddleware = require('launch-editor-middleware');
+  // const launchEditorMiddleware = require('launch-editor-middleware');
   const prepareURLs = require('../../util/prepareURLs');
   const prepareProxy = require('../../util/prepareProxy');
   const isAbsoluteUrl = require('../../util/isAbsoluteUrl');
@@ -145,15 +145,6 @@ async function serve(args, mixup, options) {
           // This lets us open files from the runtime error overlay.
           app.use(errorOverlayMiddleware());
           // launch editor support.
-          app.use(
-            '/__open-stack-frame-in-editor',
-            launchEditorMiddleware(() =>
-              console.log(
-                `To specify an editor, specify the EDITOR env variable or ` +
-                  `add "editor" field to your project config.\n`
-              )
-            )
-          );
 
           mixup.devServerConfigFns.forEach(fn => fn(app, server));
           // apply in project middlewares

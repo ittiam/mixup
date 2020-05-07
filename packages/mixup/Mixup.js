@@ -99,6 +99,10 @@ module.exports = class Mixup {
 
       babel: {},
 
+      dll: {
+        enable: false,
+      },
+
       css: {
         // extract: true,
         // modules: false,

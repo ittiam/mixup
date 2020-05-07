@@ -114,6 +114,11 @@ module.exports = (opts = {}) => mixup => {
       );
   }
 
+  const dllRule = mixup.config.module.rules.get('dll');
+  if (dllRule) {
+    mixup.config.plugins.delete('vue-loader');
+  }
+
   const lintRule = mixup.config.module.rules.get('lint');
   if (lintRule) {
     // We need to re-set the extension list used by the eslint settings

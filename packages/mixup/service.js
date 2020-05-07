@@ -4,6 +4,7 @@ const modes = {
   inspect: 'development',
   start: 'development',
   build: 'production',
+  dll: 'production',
 };
 
 module.exports = (
