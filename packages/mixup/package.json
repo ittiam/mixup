@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup",
-  "version": "2.2.20",
+  "version": "2.2.25",
   "description": "A modular build tool based on webpack.",
   "repository": "git@github.com:ittiam/mixup.git",
   "author": "chonger42 <ittiamc@gmail.com>",
