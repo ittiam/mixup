@@ -106,7 +106,16 @@ async function serve(args, mixup, options) {
   }
 
   // Compile our assets with webpack
-  const clientCompiler = webpack(webpackConfig);
+  let clientCompiler;
+  try {
+    clientCompiler = webpack(webpackConfig);
+  } catch (err) {
+    console.log(chalk.red('Failed to compile.'));
+    console.log();
+    console.log(err.message || err);
+    console.log();
+    process.exit(1);
+  }
 
   // create server
   const clientDevServer = new WebpackDevServer(
@@ -179,6 +188,17 @@ async function serve(args, mixup, options) {
   }
 
   return new Promise((resolve, reject) => {
+    // "invalid" event fires when you have changed a file, and webpack is
+    // recompiling a bundle. WebpackDevServer takes care to pause serving the
+    // bundle, so if you refresh, it'll wait instead of serving the old one.
+    // "invalid" is short for "bundle invalidated", it doesn't imply any errors.
+    clientCompiler.hooks.invalid.tap('invalid', () => {
+      if (!options.debug && isInteractive) {
+        clearConsole();
+      }
+      console.log('Compiling...');
+    });
+
     let isFirstCompile = true;
     clientCompiler.hooks.done.tap('done', stats => {
       if (!options.debug && isInteractive) {

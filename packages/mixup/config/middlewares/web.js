@@ -274,6 +274,10 @@ module.exports = opts => mixup => {
       `(typeof self !== 'undefined' ? self : this)`
     );
 
+    webpackConfig.output.devtoolModuleFilenameTemplate(info =>
+      path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+    );
+
     webpackConfig
       .plugin('no-emit-on-errors')
       .use(require('webpack/lib/NoEmitOnErrorsPlugin'));

@@ -23,7 +23,6 @@ var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 
 ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
-  // Keep this sync with errorOverlayMiddleware.js
   fetch(
     launchEditorEndpoint +
       '?fileName=' +
@@ -56,21 +55,17 @@ if (module.hot && typeof module.hot.dispose === 'function') {
   });
 }
 
-function stripLastSlash(str) {
-  return str.slice(-1) === '/' ? str.slice(0, -1) : str;
-}
-
 // Connect to WebpackDevServer via a socket.
 var connection = new WebSocket(
   process.env.SOCKET_SERVER
     ? `${stripLastSlash(process.env.SOCKET_SERVER)}/sockjs-node`
     : url.format({
-        protocol: 'ws',
-        hostname: window.location.hostname,
-        port: window.location.port,
-        // port: 10000,
+        protocol: window.location.protocol === 'https:' ? 'wss' : 'ws',
+        hostname: process.env.WDS_SOCKET_HOST || window.location.hostname,
+        port: process.env.WDS_SOCKET_PORT || window.location.port,
         // Hardcoded in WebpackDevServer
-        pathname: '/sockjs-node',
+        pathname: process.env.WDS_SOCKET_PATH || '/sockjs-node',
+        slashes: true,
       })
 );
 
@@ -227,11 +222,11 @@ connection.onmessage = function(e) {
 function isUpdateAvailable() {
   /* globals __webpack_hash__ */
   // __webpack_hash__ is the hash of the current compilation.
-  // It's a global variable injected by Webpack.
+  // It's a global variable injected by webpack.
   return mostRecentCompilationHash !== __webpack_hash__;
 }
 
-// Webpack disallows updates in other states.
+// webpack disallows updates in other states.
 function canApplyUpdates() {
   return module.hot.status() === 'idle';
 }
@@ -239,7 +234,7 @@ function canApplyUpdates() {
 // Attempt to update code on the fly, fall back to a hard reload.
 function tryApplyUpdates(onHotUpdateSuccess) {
   if (!module.hot) {
-    // HotModuleReplacementPlugin is not in Webpack configuration.
+    // HotModuleReplacementPlugin is not in webpack configuration.
     window.location.reload();
     return;
   }
@@ -249,7 +244,10 @@ function tryApplyUpdates(onHotUpdateSuccess) {
   }
 
   function handleApplyUpdates(err, updatedModules) {
-    if (err || !updatedModules || hadRuntimeError) {
+    const hasReactRefresh = process.env.FAST_REFRESH;
+    const wantsForcedReload = err || !updatedModules || hadRuntimeError;
+    // React refresh can handle hot-reloading over errors.
+    if (!hasReactRefresh && wantsForcedReload) {
       window.location.reload();
       return;
     }
@@ -268,7 +266,7 @@ function tryApplyUpdates(onHotUpdateSuccess) {
   // https://webpack.github.io/docs/hot-module-replacement.html#check
   var result = module.hot.check(/* autoApply */ true, handleApplyUpdates);
 
-  // // Webpack 2 returns a Promise instead of invoking a callback
+  // // webpack 2 returns a Promise instead of invoking a callback
   if (result && result.then) {
     result.then(
       function(updatedModules) {
