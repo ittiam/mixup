@@ -9,7 +9,7 @@
     "lintcss:fix": "stylelint src/**/*.{html,vue} --custom-syntax postcss-html --fix"
   },
   "devDependencies": {
-    "@mixup/mixup": "^2.2.0",
+    "@mixup/mixup": "^2.3.3",
     "eslint-config-mixup": "^2.2.10",
     "eslint-plugin-vue": "^6.0.1",
     "less": "^3.10.3",
