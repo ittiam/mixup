@@ -148,12 +148,7 @@ module.exports = () => mixup => {
             publicPath: cssPublicPath,
           });
       } else {
-        rule
-          .use('style-loader')
-          .loader(require.resolve('style-loader'))
-          .options({
-            sourceMap,
-          });
+        rule.use('style-loader').loader(require.resolve('style-loader'));
       }
 
       const cssLoaderOptions = Object.assign(
