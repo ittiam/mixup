@@ -367,14 +367,16 @@ module.exports = opts => mixup => {
   const publicDir = mixup.resolve('public');
   if (fs.existsSync(publicDir)) {
     webpackConfig.plugin('copy').use(require('copy-webpack-plugin'), [
-      [
-        {
-          from: publicDir,
-          to: outputDir,
-          toType: 'dir',
-          ignore: publicCopyIgnore,
-        },
-      ],
+      {
+        patterns: [
+          {
+            from: publicDir,
+            to: outputDir,
+            toType: 'dir',
+            ignore: publicCopyIgnore,
+          },
+        ],
+      },
     ]);
   }
 
