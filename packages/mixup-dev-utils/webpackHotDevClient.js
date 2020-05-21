@@ -22,6 +22,14 @@ var launchEditorEndpoint = require('react-dev-utils/launchEditorEndpoint');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 
+function stripLastSlash(url) {
+  if (url.slice(-1) === '/') {
+    return url.slice(0, -1);
+  } else {
+    return url;
+  }
+}
+
 ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
   fetch(
     launchEditorEndpoint +
@@ -58,7 +66,7 @@ if (module.hot && typeof module.hot.dispose === 'function') {
 // Connect to WebpackDevServer via a socket.
 var connection = new WebSocket(
   process.env.SOCKET_SERVER
-    ? `${stripLastSlash(process.env.SOCKET_SERVER)}/sockjs-node`
+    ? stripLastSlash(process.env.SOCKET_SERVER) + '/sockjs-node'
     : url.format({
         protocol: window.location.protocol === 'https:' ? 'wss' : 'ws',
         hostname: process.env.WDS_SOCKET_HOST || window.location.hostname,
