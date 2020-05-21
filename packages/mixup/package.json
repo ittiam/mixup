@@ -1,6 +1,6 @@
 {
   "name": "@mixup/mixup",
-  "version": "2.3.7",
+  "version": "2.3.8",
   "description": "A modular build tool based on webpack.",
   "repository": "git@github.com:ittiam/mixup.git",
   "author": "chonger42 <ittiamc@gmail.com>",
@@ -64,7 +64,7 @@
     "lodash.transform": "^4.6.0",
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.5",
-    "mixup-dev-utils": "^2.3.6",
+    "mixup-dev-utils": "^2.3.8",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-loader": "^3.0.0",
