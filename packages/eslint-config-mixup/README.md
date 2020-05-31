@@ -3,39 +3,135 @@
 #### ESLint sharable config for Mixup
 
 ## Install
+
 ```
-$ npm install eslint eslint-config-mixup --save-dev
+$ npm install eslint babel-eslint  eslint-config-mixup --save-dev
 ```
 
 ## Usage
+
 Add `.eslintrc.js` on your project's root directory.
+
 ```javascript
 // .eslintrc.js
 module.exports = {
-  'extends': 'mixup',
-  'rules': {
-    // Override rules or Add more rules
-  }
-};
-```
-### Support ES6
-#### rules and syntax
-To Support ES6 rules, use `mixup/es6` instead.
-```javascript
-// .eslintrc.js
-module.exports = {
-  'extends': 'mixup/es6' // default rule and ES6 rule
-};
-```
-#### syntax only
-By default, ESLint configuration expects ES5 syntax. You can override this setting to enable support for ES6 syntax and new ES6 global variables.
-```javascript
-// .eslintrc.js
-module.exports = {
-  'extends': 'mixup', // no ES6 rule
-  'env': {
-    'es6': true
-  }
+  extends: ['mixup'],
+  env: {
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
+  },
+  globals: {
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
+  },
+  rules: {
+    // 自定义你的规则
+  },
 };
 ```
 
+### Support Vue
+
+#### Install
+
+```
+$ npm install --save-dev eslint babel-eslint vue-eslint-parser eslint-plugin-vue eslint-config-mixup
+```
+
+#### rules and syntax
+
+```javascript
+// .eslintrc.js
+module.exports = {
+  extends: ['mixup', 'mixup/vue'],
+  env: {
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
+  },
+  globals: {
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
+  },
+  rules: {
+    // 自定义你的规则
+  },
+};
+```
+
+### Support React
+
+#### Install
+
+```
+$ npm install --save-dev eslint babel-eslint eslint-plugin-react eslint-config-mixup
+```
+
+#### rules and syntax
+
+```javascript
+module.exports = {
+  extends: ['mixup', 'mixup/react'],
+  env: {
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
+  },
+  globals: {
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
+  },
+  rules: {
+    // 自定义你的规则
+  },
+};
+```
+
+### Support Typescript
+
+#### Install
+
+```
+$ npm install --save-dev eslint typescript @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-mixup
+```
+
+#### rules and syntax
+
+```javascript
+module.exports = {
+  extends: ['mixup', 'mixup/typescript'],
+  env: {
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
+  },
+  globals: {
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
+  },
+  rules: {
+    // 自定义你的规则
+  },
+};
+```
