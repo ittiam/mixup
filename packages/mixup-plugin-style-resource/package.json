@@ -1,7 +1,6 @@
 {
   "name": "mixup-plugin-style-resource",
   "version": "2.3.11",
-  "private": true,
   "description": "style resource for mixup",
   "author": "ittiam <ittiamc@gmail.com>",
   "homepage": "https://github.com/ittiam/mixup#readme",
