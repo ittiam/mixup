@@ -1,14 +1,14 @@
 {
   "name": "eslint-config-mixup",
-  "version": "3.0.0",
+  "version": "2.3.11",
   "description": "ESLint sharable config for mixup",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
-    "@typescript-eslint/parser": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
+    "@typescript-eslint/parser": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",
@@ -16,7 +16,6 @@
     "eslint-plugin-vue": "^6.2.2",
     "vue-eslint-parser": "^7.0.0"
   },
-  "dependencies": {},
   "author": "",
   "license": "MIT",
   "gitHead": "b9abc1805d3087b50b51d5857e2e2dbf81273a4a"
