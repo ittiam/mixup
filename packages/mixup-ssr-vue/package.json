@@ -1,6 +1,6 @@
 {
   "name": "@mixup/ssr-vue",
-  "version": "2.3.11",
+  "version": "2.3.12",
   "description": "Vue SSR as a view template engine",
   "main": "index.js",
   "scripts": {
