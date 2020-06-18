@@ -62,13 +62,13 @@ module.exports = {
      */
     'vue/component-name-in-template-casing': 'off',
     /**
-     * 组件中必须按照 <script>, <template>, <style> 排序
+     * 组件中必须按照 <template>, <script>,  <style> 排序
      * @reason 这是官方建议的顺序
      */
     'vue/component-tags-order': [
       'error',
       {
-        order: ['script', 'template', 'style'],
+        order: ['template', 'script', 'style'],
       },
     ],
     /**

@@ -43,16 +43,7 @@ module.exports = {
     ],
 
     // require trailing commas in multiline object literals
-    'comma-dangle': [
-      'error',
-      {
-        arrays: 'always-multiline',
-        objects: 'always-multiline',
-        imports: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'always-multiline',
-      },
-    ],
+    'comma-dangle': ['error', 'never'],
 
     // enforce spacing before and after comma
     'comma-spacing': ['error', { before: false, after: true }],
@@ -130,10 +121,6 @@ module.exports = {
 
     // require identifiers to match the provided regular expression
     'id-match': 'off',
-
-    // Enforce the location of arrow function bodies with implicit returns
-    // https://eslint.org/docs/rules/implicit-arrow-linebreak
-    'implicit-arrow-linebreak': ['error', 'beside'],
 
     // this option sets a specific tab width for your code
     // https://eslint.org/docs/rules/indent
@@ -548,17 +535,6 @@ module.exports = {
 
     // require or disallow space before blocks
     'space-before-blocks': 'error',
-
-    // require or disallow space before function opening parenthesis
-    // https://eslint.org/docs/rules/space-before-function-paren
-    'space-before-function-paren': [
-      'error',
-      {
-        anonymous: 'always',
-        named: 'never',
-        asyncArrow: 'always',
-      },
-    ],
 
     // require or disallow spaces inside parentheses
     'space-in-parens': ['error', 'never'],
