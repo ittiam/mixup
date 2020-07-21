@@ -228,7 +228,7 @@ module.exports = {
     // https://eslint.org/docs/rules/max-len
     'max-len': [
       'error',
-      100,
+      120,
       2,
       {
         ignoreUrls: true,
@@ -428,6 +428,10 @@ module.exports = {
 
     // require padding inside curly braces
     'object-curly-spacing': ['error', 'always'],
+
+    // enforce line breaks between braces
+    // https://eslint.org/docs/rules/object-curly-newline
+    'object-curly-newline': 'off',
 
     // enforce "same line" or "multiple line" on object properties.
     // https://eslint.org/docs/rules/object-property-newline
