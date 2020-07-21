@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-mixup",
-  "version": "2.3.20",
+  "version": "2.3.21",
   "description": "ESLint sharable config for mixup",
   "main": "index.js",
   "scripts": {
