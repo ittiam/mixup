@@ -266,7 +266,7 @@ module.exports = {
     'max-nested-callbacks': 'off',
 
     // limits the number of parameters that can be used in the function declaration.
-    'max-params': ['off', 3],
+    'max-params': ['off', 5],
 
     // specify the maximum number of statement allowed in a function
     'max-statements': ['off', 10],
